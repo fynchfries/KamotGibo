@@ -1,3 +1,9 @@
+
+
+https://github.com/user-attachments/assets/c03bf677-3133-465c-8090-8705d31a90bb
+
+
+
 # Kamotgibo
 
 Implement exactly the screenshot and nothing else

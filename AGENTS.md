@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Frontend-only prototype: all content comes from hardcoded sample data in `src/data/sample.ts`; no server functions, database or auth, because the brief forbids a backend.
+- Shared header, mobile bottom nav and footer live in `src/components/kg/SiteChrome.tsx` and wrap every page from `__root.tsx`, so screens stay consistent.
+- Screens planned for later build stages render `NextStage` placeholders until their stage is built, so every link already resolves.

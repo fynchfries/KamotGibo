@@ -15,6 +15,7 @@ import { MaterialsBox } from "@/components/kg/MaterialsBox";
 import { SeatDots } from "@/components/kg/SeatDots";
 import { WORKSHOPS, formatFee, seatsLabel, type Workshop } from "@/data/sample";
 import { cn } from "@/lib/utils";
+import { useDemoProgress } from "@/lib/demo-store";
 
 export const Route = createFileRoute("/workshops/$id")({
   loader: ({ params }) => {
@@ -60,6 +61,16 @@ function initials(name: string) {
 }
 
 function BookAction({ w, className }: { w: Workshop; className?: string }) {
+  const booked = useDemoProgress().booked.includes(w.id);
+  if (booked) {
+    return (
+      <Button asChild variant="sea" size="xl" className={cn("w-full", className)}>
+        <Link to="/book/$id" params={{ id: w.id }}>
+          <Check /> You're booked · View
+        </Link>
+      </Button>
+    );
+  }
   if (w.seatsLeft === 0) {
     return (
       <div className={cn("flex flex-col gap-2", className)}>
@@ -86,6 +97,7 @@ function BookAction({ w, className }: { w: Workshop; className?: string }) {
 function WorkshopDetail() {
   const { workshop: w } = Route.useLoaderData();
   const full = w.seatsLeft === 0;
+  const booked = useDemoProgress().booked.includes(w.id);
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-40 pt-6 sm:px-6 md:pb-16">
@@ -189,7 +201,7 @@ function WorkshopDetail() {
             </p>
           </div>
           <BookAction w={w} />
-          {w.fee > 0 && !full && (
+          {w.fee > 0 && !full && !booked && (
             <p className="mt-3 text-center text-xs text-muted-foreground">
               No online payment. Pay at the venue.
             </p>
@@ -206,7 +218,13 @@ function WorkshopDetail() {
               {full ? "Full" : `${w.seatsLeft} seats left`}
             </p>
           </div>
-          {full ? (
+          {booked ? (
+            <Button asChild variant="sea" size="lg" className="flex-1">
+              <Link to="/book/$id" params={{ id: w.id }}>
+                <Check /> You're booked · View
+              </Link>
+            </Button>
+          ) : full ? (
             <Button variant="secondary" size="lg" disabled className="flex-1">
               Full · no seats left
             </Button>

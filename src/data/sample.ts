@@ -186,3 +186,73 @@ export const MATERIAL_STATUSES: MaterialStatus[] = [
   "Buy separately",
   "Bring your own",
 ];
+
+// ---------- Stage 3: learner, bookings and badges (sample) ----------
+
+export const LEARNER = { name: "Mika", age: 19 };
+
+/** Booking reference shown on the confirmation for each bookable workshop. */
+const BOOKING_REFS: Record<string, string> = {
+  "shell-jewelry-basics": "BK-GUB-1121",
+  "abaca-weaving-101": "BK-SOR-1122",
+  "rattan-basketry": "BK-BUL-1120",
+  "clay-pottery-starter": "BK-IRO-1121",
+};
+
+export function bookingRef(w: Pick<Workshop, "id">) {
+  return BOOKING_REFS[w.id] ?? `BK-${w.id.slice(0, 3).toUpperCase()}`;
+}
+
+/** What to do before the session, built from the materials list and fee. */
+export function prepNotes(w: Workshop): string[] {
+  const notes = ["Arrive 15 minutes early so the session can start on time."];
+  for (const m of w.materials) {
+    if (m.status === "Bring your own") notes.push(`Bring your own ${m.item.toLowerCase()}.`);
+    if (m.status === "Buy separately") notes.push(`Buy ${m.item.toLowerCase()} before the session.`);
+  }
+  notes.push(
+    w.fee === 0
+      ? "No fee to pay. This session is sponsored."
+      : `Bring ${formatFee(w.fee)} in cash. Pay at the venue.`,
+  );
+  return notes;
+}
+
+/** Mika's past session (before the demo). */
+export const PAST_SESSIONS = [
+  {
+    workshopId: "abaca-weaving-101",
+    date: "Sun, Nov 8",
+    attended: true,
+    skillCheck: "Not yet" as const,
+    note: "Kuya Ben suggests one more practice session on finishing the edges.",
+  },
+];
+
+export const BADGE = {
+  code: "KG-4F7A-21",
+  title: "Shellcraft: Basic Stringing",
+  craft: "Shellcraft" as Craft,
+  issuedBy: "Nanay Rosa (sample)",
+  workshopId: "shell-jewelry-basics",
+  issuedOn: "Sat, Nov 21",
+  skills: [
+    "Sorts and picks shells for a bracelet",
+    "Ties secure stringing knots",
+    "Finishes and closes a wearable bracelet",
+  ],
+};
+
+export interface LearnerProgress {
+  booked: string[];
+  badgeIssued: boolean;
+}
+
+export function milestones(p: LearnerProgress) {
+  return [
+    { label: "Attended your first workshop", hint: "Abaca Weaving 101", done: PAST_SESSIONS.length > 0 },
+    { label: "Booked your next session", hint: "Reserve a seat at any workshop", done: p.booked.length > 0 },
+    { label: "Passed your first skill check", hint: "Checked in person by your instructor", done: p.badgeIssued },
+    { label: "Learned 2 different crafts", hint: "Abaca weaving + one more", done: p.badgeIssued },
+  ];
+}

@@ -10,16 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as LearningRouteImport } from './routes/learning'
-import { Route as TeachRouteImport } from './routes/teach'
 import { Route as BadgesCodeRouteImport } from './routes/badges.$code'
 import { Route as BookIdRouteImport } from './routes/book.$id'
+import { Route as TeachIndexRouteImport } from './routes/teach.index'
+import { Route as TeachSessionRouteImport } from './routes/teach.session'
 import { Route as WorkshopsIdRouteImport } from './routes/workshops.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DiscoverRoute = DiscoverRouteImport.update({
@@ -32,11 +39,6 @@ const LearningRoute = LearningRouteImport.update({
   path: '/learning',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TeachRoute = TeachRouteImport.update({
-  id: '/teach',
-  path: '/teach',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BadgesCodeRoute = BadgesCodeRouteImport.update({
   id: '/badges/$code',
   path: '/badges/$code',
@@ -47,6 +49,16 @@ const BookIdRoute = BookIdRouteImport.update({
   path: '/book/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TeachIndexRoute = TeachIndexRouteImport.update({
+  id: '/teach/',
+  path: '/teach/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeachSessionRoute = TeachSessionRouteImport.update({
+  id: '/teach/session',
+  path: '/teach/session',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WorkshopsIdRoute = WorkshopsIdRouteImport.update({
   id: '/workshops/$id',
   path: '/workshops/$id',
@@ -55,70 +67,84 @@ const WorkshopsIdRoute = WorkshopsIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/discover': typeof DiscoverRoute
   '/learning': typeof LearningRoute
-  '/teach': typeof TeachRoute
   '/badges/$code': typeof BadgesCodeRoute
   '/book/$id': typeof BookIdRoute
+  '/teach/session': typeof TeachSessionRoute
   '/workshops/$id': typeof WorkshopsIdRoute
+  '/teach/': typeof TeachIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/discover': typeof DiscoverRoute
   '/learning': typeof LearningRoute
-  '/teach': typeof TeachRoute
   '/badges/$code': typeof BadgesCodeRoute
   '/book/$id': typeof BookIdRoute
+  '/teach/session': typeof TeachSessionRoute
   '/workshops/$id': typeof WorkshopsIdRoute
+  '/teach': typeof TeachIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/discover': typeof DiscoverRoute
   '/learning': typeof LearningRoute
-  '/teach': typeof TeachRoute
   '/badges/$code': typeof BadgesCodeRoute
   '/book/$id': typeof BookIdRoute
+  '/teach/session': typeof TeachSessionRoute
   '/workshops/$id': typeof WorkshopsIdRoute
+  '/teach/': typeof TeachIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/discover'
     | '/learning'
-    | '/teach'
     | '/badges/$code'
     | '/book/$id'
+    | '/teach/session'
     | '/workshops/$id'
+    | '/teach/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/discover'
     | '/learning'
-    | '/teach'
     | '/badges/$code'
     | '/book/$id'
+    | '/teach/session'
     | '/workshops/$id'
+    | '/teach'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/discover'
     | '/learning'
-    | '/teach'
     | '/badges/$code'
     | '/book/$id'
+    | '/teach/session'
     | '/workshops/$id'
+    | '/teach/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   DiscoverRoute: typeof DiscoverRoute
   LearningRoute: typeof LearningRoute
-  TeachRoute: typeof TeachRoute
   BadgesCodeRoute: typeof BadgesCodeRoute
   BookIdRoute: typeof BookIdRoute
+  TeachSessionRoute: typeof TeachSessionRoute
   WorkshopsIdRoute: typeof WorkshopsIdRoute
+  TeachIndexRoute: typeof TeachIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -128,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/discover': {
@@ -144,13 +177,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearningRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/teach': {
-      id: '/teach'
-      path: '/teach'
-      fullPath: '/teach'
-      preLoaderRoute: typeof TeachRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/badges/$code': {
       id: '/badges/$code'
       path: '/badges/$code'
@@ -165,6 +191,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/teach/': {
+      id: '/teach/'
+      path: '/teach'
+      fullPath: '/teach/'
+      preLoaderRoute: typeof TeachIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teach/session': {
+      id: '/teach/session'
+      path: '/teach/session'
+      fullPath: '/teach/session'
+      preLoaderRoute: typeof TeachSessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/workshops/$id': {
       id: '/workshops/$id'
       path: '/workshops/$id'
@@ -177,12 +217,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   DiscoverRoute: DiscoverRoute,
   LearningRoute: LearningRoute,
-  TeachRoute: TeachRoute,
   BadgesCodeRoute: BadgesCodeRoute,
   BookIdRoute: BookIdRoute,
+  TeachSessionRoute: TeachSessionRoute,
   WorkshopsIdRoute: WorkshopsIdRoute,
+  TeachIndexRoute: TeachIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

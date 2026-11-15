@@ -35,4 +35,4 @@ use the editor.
 - Shared header, mobile bottom nav and footer live in `src/components/kg/SiteChrome.tsx` and wrap every page from `__root.tsx`, so screens stay consistent.
 - Screens planned for later build stages render `NextStage` placeholders until their stage is built, so every link already resolves.
 - Discover filters live in the URL search params (validated in `discover.tsx`, logic in `filterWorkshops`), so filtered views can be linked from Home and survive back navigation.
-- Click-through demo progress (bookings, issued badge) lives in `src/lib/demo-store.ts`, saved to the browser's localStorage only, so the booking → instructor → My learning story carries across screens without a backend.
+- Click-through demo progress (bookings, issued badge, provider approvals) lives in `src/lib/demo-store.ts`, saved to the browser's localStorage only, so the booking → instructor → My learning story carries across screens without a backend.

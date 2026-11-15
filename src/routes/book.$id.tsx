@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { CraftArt } from "@/components/kg/CraftArt";
 import { demoActions } from "@/lib/demo-store";
-import { LEARNER, WORKSHOPS, bookingRef, formatFee, prepNotes } from "@/data/sample";
+import { INSTRUCTOR, LEARNER, WORKSHOPS, bookingRef, formatFee, prepNotes } from "@/data/sample";
 
 export const Route = createFileRoute("/book/$id")({
   loader: ({ params }) => {
@@ -178,6 +178,16 @@ function BookingConfirmation() {
           </Link>
         </Button>
       </div>
+
+      {w.id === INSTRUCTOR.workshopId && (
+        <Link
+          to="/teach/session"
+          className="mt-6 flex items-center justify-between gap-3 rounded-2xl border-2 border-dashed border-sea/40 px-4 py-3 text-sm font-bold text-sea hover:bg-sea-soft/50"
+        >
+          <span>Demo: switch to {w.instructor.replace(" (sample)", "")}'s instructor view</span>
+          <ArrowRight className="size-4 shrink-0" />
+        </Link>
+      )}
     </div>
   );
 }

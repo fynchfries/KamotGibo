@@ -3,9 +3,14 @@ import type { LearnerProgress } from "@/data/sample";
 
 // Click-through demo state kept in this browser only (no backend).
 const KEY = "kamotgibo-demo-v1";
-export const DEFAULT_PROGRESS: LearnerProgress = { booked: [], badgeIssued: false };
 
-let state: LearnerProgress = DEFAULT_PROGRESS;
+export interface DemoState extends LearnerProgress {
+  approvedProviders: string[];
+}
+
+export const DEFAULT_PROGRESS: DemoState = { booked: [], badgeIssued: false, approvedProviders: [] };
+
+let state: DemoState = DEFAULT_PROGRESS;
 let loaded = false;
 const listeners = new Set<() => void>();
 
@@ -14,13 +19,13 @@ function load() {
   loaded = true;
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (raw) state = { ...DEFAULT_PROGRESS, ...(JSON.parse(raw) as Partial<LearnerProgress>) };
+    if (raw) state = { ...DEFAULT_PROGRESS, ...(JSON.parse(raw) as Partial<DemoState>) };
   } catch {
     state = DEFAULT_PROGRESS;
   }
 }
 
-function set(next: LearnerProgress) {
+function set(next: DemoState) {
   state = next;
   try {
     window.localStorage.setItem(KEY, JSON.stringify(state));
@@ -55,6 +60,11 @@ export const demoActions = {
   issueBadge() {
     load();
     set({ ...state, badgeIssued: true });
+  },
+  approveProvider(id: string) {
+    load();
+    if (state.approvedProviders.includes(id)) return;
+    set({ ...state, approvedProviders: [...state.approvedProviders, id] });
   },
   reset() {
     set(DEFAULT_PROGRESS);

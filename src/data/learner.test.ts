@@ -1,5 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { BADGE, WORKSHOPS, bookingRef, milestones, prepNotes } from "./sample";
+import {
+  BADGE,
+  PROVIDERS,
+  ROSTER,
+  WORKSHOPS,
+  bookingRef,
+  canIssueBadge,
+  milestones,
+  prepNotes,
+  providerStatus,
+} from "./sample";
 
 const shell = WORKSHOPS.find((w) => w.id === "shell-jewelry-basics")!;
 const abaca = WORKSHOPS.find((w) => w.id === "abaca-weaving-101")!;
@@ -33,5 +43,31 @@ describe("Mika's badge", () => {
     const after = milestones({ booked: ["shell-jewelry-basics"], badgeIssued: true });
     expect(before.find((m) => m.label === "Passed your first skill check")!.done).toBe(false);
     expect(after.find((m) => m.label === "Passed your first skill check")!.done).toBe(true);
+  });
+});
+
+describe("instructor view", () => {
+  it("a badge needs attendance and a passed skill", () => {
+    expect(canIssueBadge({ present: true, skill: "pass", issued: false })).toBe(true);
+    expect(canIssueBadge({ present: false, skill: "pass", issued: false })).toBe(false);
+    expect(canIssueBadge({ present: true, skill: "not-yet", issued: false })).toBe(false);
+    expect(canIssueBadge({ present: true, skill: "pass", issued: true })).toBe(false);
+  });
+
+  it("roster has 6 learners, leaving 4 of 10 seats", () => {
+    expect(ROSTER.length).toBe(shell.capacity - shell.seatsLeft);
+  });
+});
+
+describe("admin review", () => {
+  it("starts with 1 Approved, 1 Pending, 1 Changes requested", () => {
+    const statuses = PROVIDERS.map((p) => p.status).sort();
+    expect(statuses).toEqual(["Approved", "Changes requested", "Pending"]);
+  });
+
+  it("Approve flips the pending provider to Approved", () => {
+    const pending = PROVIDERS.find((p) => p.status === "Pending")!;
+    expect(providerStatus(pending, [])).toBe("Pending");
+    expect(providerStatus(pending, [pending.id])).toBe("Approved");
   });
 });

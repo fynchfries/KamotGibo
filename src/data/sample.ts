@@ -256,3 +256,87 @@ export function milestones(p: LearnerProgress) {
     { label: "Learned 2 different crafts", hint: "Abaca weaving + one more", done: p.badgeIssued },
   ];
 }
+
+// ---------- Stage 4: instructor roster and admin review (sample) ----------
+
+export const INSTRUCTOR = { name: "Nanay Rosa (sample)", workshopId: "shell-jewelry-basics" };
+
+/** Learners booked into Nanay Rosa's Sat, Nov 21 session (6 of 10 seats). First names only. */
+export const ROSTER = [
+  { id: "mika", name: "Mika", ref: "BK-GUB-1121" },
+  { id: "jun", name: "Jun (sample)", ref: "BK-GUB-1104" },
+  { id: "ana", name: "Ana (sample)", ref: "BK-GUB-1107" },
+  { id: "carlo", name: "Carlo (sample)", ref: "BK-GUB-1110" },
+  { id: "bea", name: "Bea (sample)", ref: "BK-GUB-1113" },
+  { id: "lito", name: "Lito (sample)", ref: "BK-GUB-1116" },
+];
+
+export type SkillResult = "pass" | "not-yet" | null;
+
+export interface RosterMark {
+  present: boolean;
+  skill: SkillResult;
+  issued: boolean;
+}
+
+/** A badge can only be issued to a learner who attended and passed the skill check. */
+export function canIssueBadge(m: RosterMark) {
+  return m.present && m.skill === "pass" && !m.issued;
+}
+
+export type ProviderStatus = "Pending" | "Approved" | "Changes requested";
+
+export interface Provider {
+  id: string;
+  name: string;
+  kind: "Artisan" | "Cooperative" | "Learning center";
+  craft: Craft;
+  town: Town;
+  venue: string;
+  workshop: string;
+  submitted: string;
+  status: ProviderStatus;
+  adminNote?: string;
+}
+
+export const PROVIDERS: Provider[] = [
+  {
+    id: "bulan-shell-collective",
+    name: "Bulan Shellcraft Collective (sample)",
+    kind: "Cooperative",
+    craft: "Shellcraft",
+    town: "Bulan",
+    venue: "Barangay multi-purpose hall, Bulan",
+    workshop: "Buskay Keychains for Beginners",
+    submitted: "Nov 12",
+    status: "Pending",
+  },
+  {
+    id: "nanay-rosa",
+    name: "Nanay Rosa (sample)",
+    kind: "Artisan",
+    craft: "Shellcraft",
+    town: "Gubat",
+    venue: "Community craft hub, Gubat",
+    workshop: "Shell Jewelry Basics: Make Your First Buskay Bracelet",
+    submitted: "Oct 28",
+    status: "Approved",
+  },
+  {
+    id: "gubat-youth-center",
+    name: "Gubat Youth Learning Center (sample)",
+    kind: "Learning center",
+    craft: "Abaca weaving",
+    town: "Gubat",
+    venue: "Youth center activity room, Gubat",
+    workshop: "Abaca Bag Weaving",
+    submitted: "Nov 9",
+    status: "Changes requested",
+    adminNote: "Please add the venue address and list which materials learners must bring.",
+  },
+];
+
+/** Current status after the admin's approvals in this demo. */
+export function providerStatus(p: Provider, approvedIds: string[]): ProviderStatus {
+  return approvedIds.includes(p.id) ? "Approved" : p.status;
+}

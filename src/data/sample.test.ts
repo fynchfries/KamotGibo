@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { WORKSHOPS, formatFee, seatsLabel } from "./sample";
+import { WORKSHOPS, filterWorkshops, formatFee, seatsLabel } from "./sample";
 
 describe("sample workshops", () => {
   it("shows the pottery session as Full", () => {
@@ -16,5 +16,22 @@ describe("sample workshops", () => {
   it("shows the sponsored abaca workshop as Free", () => {
     const abaca = WORKSHOPS.find((w) => w.craft === "Abaca weaving")!;
     expect(formatFee(abaca.fee)).toBe("Free");
+  });
+});
+
+describe("discover filters", () => {
+  it("Gubat + Beginner shows only the shell jewelry workshop", () => {
+    const res = filterWorkshops(WORKSHOPS, { town: "Gubat", level: "Beginner" });
+    expect(res.map((w) => w.id)).toEqual(["shell-jewelry-basics"]);
+  });
+
+  it("Free shows only the sponsored abaca workshop", () => {
+    const res = filterWorkshops(WORKSHOPS, { cost: "free" });
+    expect(res.map((w) => w.id)).toEqual(["abaca-weaving-101"]);
+  });
+
+  it("Weekdays shows only the Friday basketry session", () => {
+    const res = filterWorkshops(WORKSHOPS, { when: "weekday" });
+    expect(res.map((w) => w.id)).toEqual(["rattan-basketry"]);
   });
 });

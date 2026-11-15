@@ -34,3 +34,4 @@ use the editor.
 - Frontend-only prototype: all content comes from hardcoded sample data in `src/data/sample.ts`; no server functions, database or auth, because the brief forbids a backend.
 - Shared header, mobile bottom nav and footer live in `src/components/kg/SiteChrome.tsx` and wrap every page from `__root.tsx`, so screens stay consistent.
 - Screens planned for later build stages render `NextStage` placeholders until their stage is built, so every link already resolves.
+- Discover filters live in the URL search params (validated in `discover.tsx`, logic in `filterWorkshops`), so filtered views can be linked from Home and survive back navigation.

@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as LearningRouteImport } from './routes/learning'
 import { Route as TeachRouteImport } from './routes/teach'
+import { Route as BookIdRouteImport } from './routes/book.$id'
 import { Route as WorkshopsIdRouteImport } from './routes/workshops.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const TeachRoute = TeachRouteImport.update({
   path: '/teach',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookIdRoute = BookIdRouteImport.update({
+  id: '/book/$id',
+  path: '/book/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WorkshopsIdRoute = WorkshopsIdRouteImport.update({
   id: '/workshops/$id',
   path: '/workshops/$id',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/discover': typeof DiscoverRoute
   '/learning': typeof LearningRoute
   '/teach': typeof TeachRoute
+  '/book/$id': typeof BookIdRoute
   '/workshops/$id': typeof WorkshopsIdRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/discover': typeof DiscoverRoute
   '/learning': typeof LearningRoute
   '/teach': typeof TeachRoute
+  '/book/$id': typeof BookIdRoute
   '/workshops/$id': typeof WorkshopsIdRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,24 @@ export interface FileRoutesById {
   '/discover': typeof DiscoverRoute
   '/learning': typeof LearningRoute
   '/teach': typeof TeachRoute
+  '/book/$id': typeof BookIdRoute
   '/workshops/$id': typeof WorkshopsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/discover' | '/learning' | '/teach' | '/workshops/$id'
+  fullPaths:
+    '/' | '/discover' | '/learning' | '/teach' | '/book/$id' | '/workshops/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/discover' | '/learning' | '/teach' | '/workshops/$id'
-  id: '__root__' | '/' | '/discover' | '/learning' | '/teach' | '/workshops/$id'
+  to:
+    '/' | '/discover' | '/learning' | '/teach' | '/book/$id' | '/workshops/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/discover'
+    | '/learning'
+    | '/teach'
+    | '/book/$id'
+    | '/workshops/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +94,7 @@ export interface RootRouteChildren {
   DiscoverRoute: typeof DiscoverRoute
   LearningRoute: typeof LearningRoute
   TeachRoute: typeof TeachRoute
+  BookIdRoute: typeof BookIdRoute
   WorkshopsIdRoute: typeof WorkshopsIdRoute
 }
 
@@ -109,6 +128,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeachRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/book/$id': {
+      id: '/book/$id'
+      path: '/book/$id'
+      fullPath: '/book/$id'
+      preLoaderRoute: typeof BookIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/workshops/$id': {
       id: '/workshops/$id'
       path: '/workshops/$id'
@@ -124,6 +150,7 @@ const rootRouteChildren: RootRouteChildren = {
   DiscoverRoute: DiscoverRoute,
   LearningRoute: LearningRoute,
   TeachRoute: TeachRoute,
+  BookIdRoute: BookIdRoute,
   WorkshopsIdRoute: WorkshopsIdRoute,
 }
 export const routeTree = rootRouteImport

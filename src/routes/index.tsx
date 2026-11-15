@@ -115,6 +115,7 @@ function Index() {
             <Link
               key={c.name}
               to="/discover"
+              search={{ craft: c.name }}
               className="flex min-w-[13.5rem] sm:min-w-0 items-center gap-3 rounded-2xl border bg-card p-4 shadow-card transition-all hover:-translate-y-0.5 hover:border-sea/50"
             >
               <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-sea-soft text-sea">

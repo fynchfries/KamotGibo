@@ -14,7 +14,9 @@ export interface Workshop {
   fee: number; // 0 = free
   feeNote: string;
   instructor: string;
+  instructorNote: string;
   venue: string;
+  venueNote: string;
   day: string;
   time: string;
   nextDate: string;
@@ -43,7 +45,9 @@ export const WORKSHOPS: Workshop[] = [
     fee: 300,
     feeNote: "Covers materials",
     instructor: "Nanay Rosa (sample)",
+    instructorNote: "Shell crafter from Gubat. Makes kaligay and buskay jewelry.",
     venue: "Community craft hub, Gubat",
+    venueNote: "Near the town plaza. Look for the blue gate.",
     day: "Sat",
     time: "9:00 AM – 12:00 PM",
     nextDate: "Sat, Nov 21",
@@ -70,7 +74,9 @@ export const WORKSHOPS: Workshop[] = [
     fee: 0,
     feeNote: "Free (sponsored)",
     instructor: "Kuya Ben (sample)",
+    instructorNote: "Abaca weaver and cooperative member.",
     venue: "Weavers' cooperative studio, Sorsogon City",
+    venueNote: "Ground floor studio, enter from the side door.",
     day: "Sun",
     time: "1:00 PM – 4:00 PM",
     nextDate: "Sun, Nov 22",
@@ -92,7 +98,9 @@ export const WORKSHOPS: Workshop[] = [
     fee: 500,
     feeNote: "Pay at the venue",
     instructor: "Tay Ramon (sample)",
+    instructorNote: "Basket maker working with rattan.",
     venue: "Basket makers' workshop, Bulan",
+    venueNote: "Open-air work shed behind the main house.",
     day: "Fri",
     time: "2:00 PM – 5:00 PM",
     nextDate: "Fri, Nov 20",
@@ -114,7 +122,9 @@ export const WORKSHOPS: Workshop[] = [
     fee: 350,
     feeNote: "Pay at the venue",
     instructor: "Ate Liza (sample)",
+    instructorNote: "Potter running a community clay corner.",
     venue: "Community learning center, Irosin",
+    venueNote: "Room 2 of the learning center, ask at the front desk.",
     day: "Sat",
     time: "8:00 AM – 11:00 AM",
     nextDate: "Sat, Nov 21",
@@ -137,3 +147,42 @@ export function seatsLabel(w: Pick<Workshop, "seatsLeft" | "capacity">) {
   if (w.seatsLeft === 0) return "Full";
   return `${w.seatsLeft} of ${w.capacity} seats left`;
 }
+
+export type ScheduleFilter = "weekend" | "weekday";
+export type CostFilter = "free" | "paid";
+
+export interface WorkshopFilters {
+  q?: string | undefined;
+  town?: Town | undefined;
+  craft?: Craft | undefined;
+  level?: Level | undefined;
+  when?: ScheduleFilter | undefined;
+  cost?: CostFilter | undefined;
+}
+
+const WEEKEND = ["Sat", "Sun"];
+
+export function filterWorkshops(list: Workshop[], f: WorkshopFilters): Workshop[] {
+  const q = f.q?.trim().toLowerCase();
+  return list.filter((w) => {
+    if (f.town && w.town !== f.town) return false;
+    if (f.craft && w.craft !== f.craft) return false;
+    if (f.level && w.level !== f.level) return false;
+    if (f.when === "weekend" && !WEEKEND.includes(w.day)) return false;
+    if (f.when === "weekday" && WEEKEND.includes(w.day)) return false;
+    if (f.cost === "free" && w.fee !== 0) return false;
+    if (f.cost === "paid" && w.fee === 0) return false;
+    if (q) {
+      const hay = `${w.title} ${w.craft} ${w.town} ${w.instructor}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+export const MATERIAL_STATUSES: MaterialStatus[] = [
+  "Provided",
+  "Can borrow",
+  "Buy separately",
+  "Bring your own",
+];

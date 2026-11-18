@@ -27,6 +27,36 @@ export interface Workshop {
 }
 
 export const TOWNS: Town[] = ["Gubat", "Sorsogon City", "Bulan", "Irosin"];
+export const LEVELS: Level[] = ["Beginner", "Intermediate"];
+
+export const DISCOVER_COPY = {
+  title: "Learn a local craft.",
+  description: "In-person workshops with Sorsogon artisans.",
+  steps: ["Find a workshop", "Reserve a seat", "Learn in person"],
+} as const;
+
+export const HOME_COPY = {
+  eyebrow: "Maogma na pag-abot · Welcome",
+  title: "Learn a living craft from the hands that keep it alive.",
+  description:
+    "Sorsogon crafts are best learned by doing. Meet local makers, explore shellcraft, abaca weaving, basketry and pottery, and make something with your own hands.",
+  storyEyebrow: "A story in every stitch",
+  storyTitle: "Craft traditions live when they are shared.",
+  storyDescription:
+    "Each workshop is a chance to learn the material, the technique and the small choices behind a finished piece. Go at your own pace, ask questions and make it your own.",
+  craftsHeading: "Explore local crafts",
+  stepsHeading: "How it works",
+  primaryCta: "Explore workshops",
+  secondaryCta: "Teach a craft",
+  steps: [
+    {
+      title: "Choose a craft",
+      description: "Browse the materials and techniques that interest you.",
+    },
+    { title: "Reserve a seat", description: "Find a workshop and save your spot." },
+    { title: "Learn by doing", description: "Make something alongside a local artisan." },
+  ],
+} as const;
 
 export const CRAFTS: { name: Craft; local: string; blurb: string }[] = [
   { name: "Shellcraft", local: "kaligay & buskay", blurb: "Shell jewelry and ornaments" },
@@ -207,8 +237,12 @@ export function bookingRef(w: Pick<Workshop, "id">) {
 export function prepNotes(w: Workshop): string[] {
   const notes = ["Arrive 15 minutes early so the session can start on time."];
   for (const m of w.materials) {
-    if (m.status === "Bring your own") notes.push(`Bring your own ${m.item.toLowerCase()}.`);
-    if (m.status === "Buy separately") notes.push(`Buy ${m.item.toLowerCase()} before the session.`);
+    if (m.status === "Bring your own") {
+      notes.push(`Bring your own ${m.item.toLowerCase()}.`);
+    }
+    if (m.status === "Buy separately") {
+      notes.push(`Buy ${m.item.toLowerCase()} before the session.`);
+    }
   }
   notes.push(
     w.fee === 0
@@ -250,9 +284,21 @@ export interface LearnerProgress {
 
 export function milestones(p: LearnerProgress) {
   return [
-    { label: "Attended your first workshop", hint: "Abaca Weaving 101", done: PAST_SESSIONS.length > 0 },
-    { label: "Booked your next session", hint: "Reserve a seat at any workshop", done: p.booked.length > 0 },
-    { label: "Passed your first skill check", hint: "Checked in person by your instructor", done: p.badgeIssued },
+    {
+      label: "Attended your first workshop",
+      hint: "Abaca Weaving 101",
+      done: PAST_SESSIONS.length > 0,
+    },
+    {
+      label: "Booked your next session",
+      hint: "Reserve a seat at any workshop",
+      done: p.booked.length > 0,
+    },
+    {
+      label: "Passed your first skill check",
+      hint: "Checked in person by your instructor",
+      done: p.badgeIssued,
+    },
     { label: "Learned 2 different crafts", hint: "Abaca weaving + one more", done: p.badgeIssued },
   ];
 }

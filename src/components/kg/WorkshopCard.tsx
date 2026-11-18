@@ -1,63 +1,121 @@
 import { Link } from "@tanstack/react-router";
-import { CalendarDays, MapPin, Users } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { CraftArt } from "./CraftArt";
-import { formatFee, seatsLabel, type Workshop } from "@/data/sample";
+import { ArrowRight, CalendarDays, Clock, MapPin } from "lucide-react";
+import { CraftIcon } from "./CraftArt";
+import { formatFee, seatsLabel, type Craft, type Workshop } from "@/data/sample";
 import { cn } from "@/lib/utils";
 
-export function WorkshopCard({ workshop: w, className }: { workshop: Workshop; className?: string }) {
+const CATALOG_ART: Record<Craft, string> = {
+  Shellcraft: "bg-sea-soft text-sea",
+  "Abaca weaving": "bg-sand bg-weave text-foreground",
+  Basketry: "bg-coral-soft text-primary",
+  Pottery: "bg-sand text-foreground",
+};
+
+export function WorkshopCard({
+  workshop: w,
+  className,
+  variant = "default",
+}: {
+  workshop: Workshop;
+  className?: string;
+  variant?: "default" | "catalog";
+}) {
   const full = w.seatsLeft === 0;
   const low = !full && w.seatsLeft <= 2;
+  const catalog = variant === "catalog";
   return (
     <Link
       to="/workshops/$id"
       params={{ id: w.id }}
       className={cn(
-        "group flex flex-col overflow-hidden rounded-3xl border bg-card shadow-card transition-all hover:-translate-y-1 hover:shadow-lift",
+        "group flex flex-col border bg-card shadow-card hover:border-primary focus-visible:border-primary",
+        catalog
+          ? "overflow-hidden rounded-xl transition-[border-color,box-shadow] duration-200 hover:shadow-lift motion-reduce:transition-none"
+          : "rounded-2xl p-5 transition-colors",
         className,
       )}
     >
-      <div className="relative">
-        <CraftArt craft={w.craft} className="h-32" />
-        <div className="absolute left-3 top-3 flex gap-1.5">
-          <Badge variant="outline" className="border-transparent bg-card/90">
+      {catalog ? (
+        <div className={cn("relative grid h-26 shrink-0 place-items-center", CATALOG_ART[w.craft])}>
+          <span className="absolute left-4 top-3.5 text-xs font-extrabold">{w.craft}</span>
+          <span aria-hidden="true">
+            <CraftIcon
+              craft={w.craft}
+              className={cn(
+                "ml-24 size-16 [stroke-width:1.2]",
+                w.craft === "Pottery" && "text-primary",
+              )}
+            />
+          </span>
+        </div>
+      ) : (
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <span className="flex items-center gap-2 text-sm font-semibold text-primary">
+            <span className="grid size-9 place-items-center rounded-lg bg-secondary">
+              <CraftIcon craft={w.craft} className="size-5" />
+            </span>
             {w.craft}
-          </Badge>
+          </span>
+          <span className="text-xs font-medium text-muted-foreground">{w.level}</span>
         </div>
-        <div className="absolute right-3 top-3">
-          <Badge variant={w.fee === 0 ? "success" : "coral"} className="bg-card/95">
-            {formatFee(w.fee)}
-          </Badge>
-        </div>
-      </div>
-      <div className="flex flex-1 flex-col gap-3 p-5">
-        <h3 className="text-lg font-semibold leading-snug text-foreground group-hover:text-primary">
+      )}
+      <div className={catalog ? "flex flex-1 flex-col p-4" : "contents"}>
+        {catalog && <p className="text-xs text-muted-foreground">{w.instructor}</p>}
+        <h3
+          className={cn(
+            "font-bold tracking-tight transition-colors group-hover:text-primary group-focus-visible:text-primary",
+            catalog
+              ? "mb-3 mt-1.5 text-[17px] leading-[1.4] duration-200 min-[541px]:min-h-[4.2em] motion-reduce:transition-none"
+              : "mt-4 text-lg leading-snug",
+          )}
+        >
           {w.title}
         </h3>
-        <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-muted-foreground">
-          <span className="flex items-center gap-1.5">
-            <MapPin className="size-4" /> {w.town}
-          </span>
-          <span className="flex items-center gap-1.5">
-            <CalendarDays className="size-4" /> {w.nextDate} · {w.time.split(" – ")[0]}
-          </span>
-        </div>
-        <div className="mt-auto flex items-center justify-between pt-1">
-          <Badge variant="sea">{w.level}</Badge>
-          <span
+        {!catalog && <p className="mt-2 text-sm text-muted-foreground">With {w.instructor}</p>}
+        <div className={cn("mt-auto", catalog ? "pt-1" : "pt-5")}>
+          <div
             className={cn(
-              "flex items-center gap-1.5 text-sm font-bold",
-              full ? "text-muted-foreground" : low ? "text-primary" : "text-success",
+              "text-muted-foreground",
+              catalog ? "space-y-1.5 text-xs" : "space-y-2 text-sm",
             )}
           >
-            {full ? (
-              <Badge variant="full">Full</Badge>
-            ) : (
-              <>
-                <Users className="size-4" /> {seatsLabel(w)}
-              </>
+            <p className="flex items-center gap-2">
+              <MapPin className="size-4 shrink-0" aria-hidden="true" />
+              {w.town}
+              {catalog && ` · ${w.level}`}
+            </p>
+            <p className="flex items-center gap-2">
+              <CalendarDays className="size-4 shrink-0" aria-hidden="true" /> {w.nextDate}
+            </p>
+            <p className="flex items-center gap-2">
+              <Clock className="size-4 shrink-0" aria-hidden="true" /> {w.time}
+            </p>
+          </div>
+          <div
+            className={cn(
+              "flex gap-3 border-t",
+              catalog ? "mt-4 flex-col pt-3" : "mt-5 flex-wrap items-end justify-between pt-4",
             )}
-          </span>
+          >
+            <div
+              className={catalog ? "flex flex-wrap items-center justify-between gap-2" : undefined}
+            >
+              <p className="text-xl font-bold tabular-nums">{formatFee(w.fee)}</p>
+              <p
+                className={cn(
+                  "text-xs font-medium",
+                  !catalog && "mt-1",
+                  full ? "text-muted-foreground" : low ? "font-bold text-coral" : "text-sea",
+                  catalog && full && "rounded bg-sand px-2 py-0.5 text-foreground",
+                )}
+              >
+                {seatsLabel(w)}
+              </p>
+            </div>
+            <span className="flex items-center gap-1.5 text-xs font-bold text-primary">
+              View workshop <ArrowRight className="size-4" aria-hidden="true" />
+            </span>
+          </div>
         </div>
       </div>
     </Link>

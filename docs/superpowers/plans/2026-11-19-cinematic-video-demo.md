@@ -49,4 +49,3 @@ Artifact-only native execution: no application worktree, browser session, depend
 - All 38 original actions, order and timing preserved; original source manifest hash verified.
 - Self-reviewed close-up/result/transition previews and decoded output frames, including the last frame. Reduced non-transition blur and improved the badge-result framing/read hold after preview review.
 - All 132 baseline app/original-video hashes unchanged; original MP4 retained. No application tests rerun, dependencies installed, commits or pushes made.
-

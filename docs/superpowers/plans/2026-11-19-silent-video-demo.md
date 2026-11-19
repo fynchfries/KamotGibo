@@ -58,4 +58,3 @@
 - All 131 baseline application source/assets hashes are unchanged. No dependencies installed, commits made, or app test suite rerun.
 - Disposable recording browser closed; existing application servers and personal browser storage left untouched.
 - Recording implementation: native-resolution screenshots were used because Chrome screencast output ignored device pixel ratio. DOM activation of real controls avoided screenshot-induced CDP coordinate scaling; actual application state changes were asserted.
-

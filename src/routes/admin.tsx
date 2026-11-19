@@ -1,11 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, CalendarDays, Check, Clock, Info, MapPin, PencilLine, ShieldCheck } from "lucide-react";
+import {
+  ArrowLeft,
+  CalendarDays,
+  Check,
+  Clock,
+  Info,
+  MapPin,
+  PencilLine,
+  ShieldCheck,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CraftIcon } from "@/components/kg/CraftArt";
-import { demoActions, useDemoProgress } from "@/lib/demo-store";
+import { demoActions, getProviders, useDemoProgress } from "@/lib/demo-store";
 import { cn } from "@/lib/utils";
-import { PROVIDERS, providerStatus, type ProviderStatus } from "@/data/sample";
+import { PROVIDERS, type ProviderStatus } from "@/data/sample";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -14,10 +23,14 @@ export const Route = createFileRoute("/admin")({
       { name: "robots", content: "noindex" },
       {
         name: "description",
-        content: "Review artisans, cooperatives and learning centers before they can publish workshops.",
+        content:
+          "Review artisans, cooperatives and learning centers before they can publish workshops.",
       },
       { property: "og:title", content: "Admin review · KamotGibo" },
-      { property: "og:description", content: "Review providers before they can publish workshops." },
+      {
+        property: "og:description",
+        content: "Review providers before they can publish workshops.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -25,24 +38,27 @@ export const Route = createFileRoute("/admin")({
   component: AdminReview,
 });
 
-const STATUS_STYLE: Record<ProviderStatus, { variant: "warning" | "success" | "coral"; Icon: typeof Check }> = {
+const STATUS_STYLE: Record<
+  ProviderStatus,
+  { variant: "warning" | "success" | "coral"; Icon: typeof Check }
+> = {
   Pending: { variant: "warning", Icon: Clock },
   Approved: { variant: "success", Icon: Check },
   "Changes requested": { variant: "coral", Icon: PencilLine },
 };
 
 function AdminReview() {
-  const { approvedProviders } = useDemoProgress();
-  const rows = PROVIDERS.map((p) => ({ ...p, current: providerStatus(p, approvedProviders) }));
+  const progress = useDemoProgress();
+  const rows = getProviders(progress).map((p) => ({ ...p, current: p.status }));
   const count = (s: ProviderStatus) => rows.filter((r) => r.current === s).length;
 
   return (
     <div className="mx-auto max-w-4xl px-4 pb-16 pt-6 sm:px-6">
       <Link
-        to="/teach"
+        to="/teach/workshops"
         className="inline-flex min-h-10 items-center gap-1.5 text-sm font-bold text-sea hover:underline"
       >
-        <ArrowLeft className="size-4" /> Teach with us
+        <ArrowLeft aria-hidden="true" className="size-4" /> Back to artisan workspace
       </Link>
       <p className="mt-2 text-sm font-bold uppercase tracking-widest text-primary">Admin review</p>
       <h1 className="mt-1 text-3xl font-semibold sm:text-4xl">Provider applications</h1>
@@ -66,7 +82,9 @@ function AdminReview() {
       <ul className="mt-6 flex flex-col gap-4">
         {rows.map((p) => {
           const { variant, Icon } = STATUS_STYLE[p.current];
-          const justApproved = p.status !== "Approved" && p.current === "Approved";
+          const justApproved =
+            progress.approvedProviders.includes(p.id) &&
+            PROVIDERS.find((seed) => seed.id === p.id)?.status !== "Approved";
           return (
             <li
               key={p.id}
@@ -130,7 +148,11 @@ function AdminReview() {
 
               {p.current === "Pending" && (
                 <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center">
-                  <Button variant="hero" size="lg" onClick={() => demoActions.approveProvider(p.id)}>
+                  <Button
+                    variant="hero"
+                    size="lg"
+                    onClick={() => demoActions.approveProvider(p.id)}
+                  >
                     <Check /> Approve
                   </Button>
                   <p className="text-sm text-muted-foreground">
@@ -142,7 +164,9 @@ function AdminReview() {
               {p.current === "Approved" && (
                 <p className="mt-4 flex items-center gap-2 text-sm font-bold text-success">
                   <ShieldCheck className="size-4" />
-                  {justApproved ? "Approved just now. They can publish workshops." : "Can publish workshops."}
+                  {justApproved
+                    ? "Approved just now. They can publish workshops."
+                    : "Can publish workshops."}
                 </p>
               )}
             </li>
@@ -151,8 +175,8 @@ function AdminReview() {
       </ul>
 
       <p className="mt-6 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground">
-        "Approved" means a KamotGibo admin reviewed the provider's profile, venue details and workshop
-        listing.
+        "Approved" means a KamotGibo admin reviewed the provider's profile, venue details and
+        workshop listing.
       </p>
     </div>
   );

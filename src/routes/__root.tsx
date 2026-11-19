@@ -12,7 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { BottomNav, SiteFooter, SiteHeader } from "../components/kg/SiteChrome";
+import { SiteFrame } from "../components/kg/SiteChrome";
 
 function NotFoundComponent() {
   return (
@@ -135,14 +135,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <div className="flex min-h-screen flex-col pb-safe-nav md:pb-0">
-        <SiteHeader />
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        <SiteFooter />
-      </div>
-      <BottomNav />
+      <SiteFrame>
+        <Outlet />
+      </SiteFrame>
     </QueryClientProvider>
   );
 }

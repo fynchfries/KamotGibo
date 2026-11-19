@@ -13,11 +13,11 @@ import {
   DISCOVER_COPY,
   LEVELS,
   TOWNS,
-  WORKSHOPS,
   filterWorkshops,
   type WorkshopFilters,
 } from "@/data/sample";
 import { validateWorkshopSearch } from "@/lib/workshop-search";
+import { getWorkshops, useDemoProgress } from "@/lib/demo-store";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/discover")({
@@ -44,7 +44,8 @@ function Discover() {
   const navigate = useNavigate({ from: "/discover" });
   const searchInput = useRef<HTMLInputElement>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const results = filterWorkshops(WORKSHOPS, filters);
+  const progress = useDemoProgress();
+  const results = filterWorkshops(getWorkshops(progress), filters);
   const active = Object.values(filters).some(Boolean);
 
   const set = (patch: Partial<WorkshopFilters>) =>

@@ -1,32 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  CalendarDays,
-  CheckCircle2,
-  Circle,
-  Lock,
-  MapPin,
-  Ticket,
-} from "lucide-react";
+import { ArrowRight, CalendarDays, CheckCircle2, Circle, MapPin, Ticket } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BadgeMedal } from "@/components/kg/BadgeMedal";
 import { CraftIcon } from "@/components/kg/CraftArt";
-import { useDemoProgress } from "@/lib/demo-store";
-import {
-  BADGE,
-  LEARNER,
-  PAST_SESSIONS,
-  WORKSHOPS,
-  bookingRef,
-  milestones,
-} from "@/data/sample";
+import { getWorkshops, useDemoProgress } from "@/lib/demo-store";
+import { useLearnerProfile } from "@/lib/learner-profile";
+import { LearnerAvatar } from "@/components/kg/LearnerProfileButton";
+import { BADGE, PAST_SESSIONS, WORKSHOPS, bookingRef, milestones } from "@/data/sample";
 
 export const Route = createFileRoute("/learning")({
   head: () => ({
     meta: [
       { title: "My learning · KamotGibo" },
-      { name: "description", content: "Your bookings, attendance, milestones and platform skill-verified badges." },
+      {
+        name: "description",
+        content: "Your bookings, attendance, milestones and platform skill-verified badges.",
+      },
       { property: "og:title", content: "My learning · KamotGibo" },
       { property: "og:description", content: "Your bookings, attendance and badges." },
       { property: "og:type", content: "website" },
@@ -53,28 +43,40 @@ function SectionTitle({ children, count }: { children: React.ReactNode; count?: 
 
 function MyLearning() {
   const progress = useDemoProgress();
-  const upcoming = progress.booked.map(byId);
+  const profile = useLearnerProfile();
+  const upcoming = getWorkshops(progress).filter((w) => progress.booked.includes(w.id));
   const steps = milestones(progress);
   const doneCount = steps.filter((s) => s.done).length;
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-6">
       {/* Profile */}
-      <div className="flex items-center gap-4">
-        <span className="grid size-16 shrink-0 place-items-center rounded-full bg-sea font-display text-2xl font-semibold text-sea-foreground">
-          {LEARNER.name[0]}
-        </span>
-        <div>
+      <div className="flex items-start gap-4">
+        <LearnerAvatar profile={profile} className="size-16 shrink-0 text-2xl" />
+        <div className="min-w-0 flex-1">
           <p className="text-sm font-bold uppercase tracking-widest text-primary">My learning</p>
-          <h1 className="text-3xl font-semibold sm:text-4xl">Kumusta, {LEARNER.name}!</h1>
-          <p className="text-sm text-muted-foreground">
-            {LEARNER.name}, {LEARNER.age} · <Lock className="inline size-3.5" /> Private profile. Only you
-            can see this page.
+          <h1 className="break-words text-3xl font-semibold sm:text-4xl">
+            Kumusta, {profile.fullName}!
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            <MapPin aria-hidden="true" className="inline size-3.5" /> {profile.municipality} ·
+            Learner demo
+          </p>
+          <p className="mt-3 break-words text-sm">{profile.bio}</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {profile.interests.map((craft) => (
+              <Badge key={craft} variant="secondary">
+                {craft}
+              </Badge>
+            ))}
+          </div>
+          <p className="mt-3 text-xs text-muted-foreground">
+            Browser-local demo. Use fictional details only; no private-account protection.
           </p>
         </div>
       </div>
 
-      <div className="mt-8 grid gap-6 md:grid-cols-[1fr_360px] md:items-start">
+      <div className="mt-8 grid gap-6 xl:grid-cols-[1fr_360px] md:items-start">
         <div className="flex flex-col gap-6">
           {/* Upcoming */}
           <section className="rounded-3xl border bg-card p-5 shadow-card sm:p-6">
@@ -107,7 +109,8 @@ function MyLearning() {
                         <p className="font-bold leading-snug">{w.title}</p>
                         <p className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted-foreground">
                           <span className="flex items-center gap-1">
-                            <CalendarDays className="size-4" /> {w.nextDate} · {w.time.split(" – ")[0]}
+                            <CalendarDays className="size-4" /> {w.nextDate} ·{" "}
+                            {w.time.split(" – ")[0]}
                           </span>
                           <span className="flex items-center gap-1">
                             <MapPin className="size-4" /> {w.town}
@@ -219,7 +222,9 @@ function MyLearning() {
                     <Circle className="mt-0.5 size-5 shrink-0 text-muted-foreground/50" />
                   )}
                   <div>
-                    <p className={s.done ? "font-bold" : "font-bold text-muted-foreground"}>{s.label}</p>
+                    <p className={s.done ? "font-bold" : "font-bold text-muted-foreground"}>
+                      {s.label}
+                    </p>
                     <p className="text-sm text-muted-foreground">{s.hint}</p>
                   </div>
                 </li>

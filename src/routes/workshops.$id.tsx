@@ -1,54 +1,44 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import {
-  ArrowLeft,
-  BadgeCheck,
-  CalendarDays,
-  Check,
-  Clock,
-  MapPin,
-  Users,
-} from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowLeft, BadgeCheck, CalendarDays, Check, Clock, MapPin, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CraftArt } from "@/components/kg/CraftArt";
 import { MaterialsBox } from "@/components/kg/MaterialsBox";
 import { SeatDots } from "@/components/kg/SeatDots";
-import { WORKSHOPS, formatFee, seatsLabel, type Workshop } from "@/data/sample";
+import { WorkshopShare } from "@/components/kg/WorkshopShare";
+import { getPublicWorkshop, getWorkshopMetadata } from "@/lib/workshop-sharing";
+import { getShareOrigin } from "@/lib/share-origin";
+import { BADGE, WORKSHOPS, formatFee, seatsLabel, type Workshop } from "@/data/sample";
 import { cn } from "@/lib/utils";
-import { useDemoProgress } from "@/lib/demo-store";
+import { getWorkshops, useDemoProgress } from "@/lib/demo-store";
 
 export const Route = createFileRoute("/workshops/$id")({
   loader: ({ params }) => {
     const workshop = WORKSHOPS.find((w) => w.id === params.id);
-    if (!workshop) throw notFound();
-    return { workshop };
+    // Browser-created workshops resolve from the client store after hydration.
+    return { workshop, origin: getShareOrigin() };
   },
-  head: ({ loaderData }) => {
-    const w = loaderData?.workshop;
-    if (!w) return { meta: [{ title: "Workshop not found · KamotGibo" }, { name: "robots", content: "noindex" }] };
-    const desc = `${w.craft} · ${w.level} · ${w.town}. ${w.nextDate}, ${w.time}. ${formatFee(w.fee)}.`;
-    return {
-      meta: [
-        { title: `${w.title} · KamotGibo` },
-        { name: "description", content: desc },
-        { property: "og:title", content: w.title },
-        { property: "og:description", content: desc },
-        { property: "og:type", content: "website" },
-        { name: "twitter:card", content: "summary_large_image" },
-      ],
-    };
-  },
-  notFoundComponent: () => (
+  head: ({ loaderData }) =>
+    getWorkshopMetadata(loaderData?.workshop?.id ?? "", loaderData?.origin ?? "") ?? {
+      meta: [{ title: "Workshop · KamotGibo" }, { name: "robots", content: "noindex" }],
+    },
+  notFoundComponent: WorkshopNotFound,
+  component: WorkshopDetail,
+});
+
+function WorkshopNotFound() {
+  return (
     <div className="mx-auto max-w-md px-6 py-20 text-center">
       <h1 className="text-3xl font-semibold">Workshop not found</h1>
-      <p className="mt-2 text-muted-foreground">It may have been removed or the link is wrong.</p>
+      <p className="mt-2 text-muted-foreground">
+        This workshop is not published in this browser's demo.
+      </p>
       <Button asChild variant="outline-sea" className="mt-6">
         <Link to="/discover">Browse workshops</Link>
       </Button>
     </div>
-  ),
-  component: WorkshopDetail,
-});
+  );
+}
 
 function initials(name: string) {
   return name
@@ -95,9 +85,13 @@ function BookAction({ w, className }: { w: Workshop; className?: string }) {
 }
 
 function WorkshopDetail() {
-  const { workshop: w } = Route.useLoaderData();
+  const { id } = Route.useParams();
+  const { origin } = Route.useLoaderData();
+  const progress = useDemoProgress();
+  const w = getWorkshops(progress).find((workshop) => workshop.id === id);
+  if (!w) return <WorkshopNotFound />;
   const full = w.seatsLeft === 0;
-  const booked = useDemoProgress().booked.includes(w.id);
+  const booked = progress.booked.includes(w.id);
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-40 pt-6 sm:px-6 md:pb-16">
@@ -122,13 +116,24 @@ function WorkshopDetail() {
         {full && <Badge variant="full">Full</Badge>}
       </div>
       <h1 className="mt-3 max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl">{w.title}</h1>
+      {!getPublicWorkshop(w.id) && (
+        <p className="mt-4 rounded-xl border bg-warning-soft p-4 text-sm text-warning">
+          Browser-only demo listing. Other people cannot open this workshop from a shared link yet;
+          public sharing is unavailable.
+        </p>
+      )}
 
-      <div className="mt-8 grid gap-8 md:grid-cols-[1fr_340px] md:items-start">
+      <div className="mt-8 grid gap-8 xl:grid-cols-[1fr_340px] md:items-start">
         <div className="flex flex-col gap-6">
           {/* Quick facts */}
           <dl className="grid gap-3 sm:grid-cols-2">
-            <Fact Icon={CalendarDays} label="Next session" value={w.nextDate} sub={`Every ${w.day}`} />
-            <Fact Icon={Clock} label="Time" value={w.time} sub="About 3 hours, hands-on" />
+            <Fact
+              Icon={CalendarDays}
+              label="Next session"
+              value={w.nextDate}
+              sub={`Session day: ${w.day}`}
+            />
+            <Fact Icon={Clock} label="Time" value={w.time} sub="In-person, hands-on" />
             <Fact Icon={MapPin} label="Venue" value={w.venue} sub={w.venueNote} />
             <div className="rounded-2xl border bg-card p-4">
               <dt className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-muted-foreground">
@@ -159,8 +164,17 @@ function WorkshopDetail() {
               ))}
             </ul>
             <p className="mt-5 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground">
-              Learners who pass the instructor's skill check earn a{" "}
-              <strong className="text-foreground">platform skill-verified</strong> badge.
+              {w.id === BADGE.workshopId ? (
+                <>
+                  Learners who pass the instructor's skill check earn a{" "}
+                  <strong className="text-foreground">platform skill-verified</strong> badge.
+                </>
+              ) : (
+                <>
+                  Attendance and skill checks are recorded. Badge issuance in this prototype is
+                  demonstrated only in Shell Jewelry Basics.
+                </>
+              )}
             </p>
           </section>
 
@@ -186,7 +200,10 @@ function WorkshopDetail() {
         </div>
 
         {/* Desktop booking card */}
-        <aside className="sticky top-24 hidden rounded-3xl border bg-card p-6 shadow-lift md:block">
+        <aside
+          aria-label="Workshop booking"
+          className="sticky top-24 hidden rounded-3xl border bg-card p-6 shadow-lift md:block"
+        >
           <p className="font-display text-3xl font-semibold">{formatFee(w.fee)}</p>
           <p className="text-sm text-muted-foreground">{w.feeNote}</p>
           <div className="my-5 space-y-2 border-y py-4 text-sm">
@@ -201,6 +218,7 @@ function WorkshopDetail() {
             </p>
           </div>
           <BookAction w={w} />
+          <WorkshopShare workshop={w} origin={origin} className="mt-3 w-full" />
           {w.fee > 0 && !full && !booked && (
             <p className="mt-3 text-center text-xs text-muted-foreground">
               No online payment. Pay at the venue.
@@ -210,8 +228,12 @@ function WorkshopDetail() {
       </div>
 
       {/* Mobile booking bar, sits above the bottom menu */}
-      <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-40 border-t bg-card/95 px-4 py-3 backdrop-blur md:hidden">
-        <div className="mx-auto flex max-w-6xl items-center gap-4">
+      <div
+        role="group"
+        aria-label="Mobile workshop actions"
+        className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-40 border-t bg-card/95 px-4 py-3 backdrop-blur md:hidden"
+      >
+        <div className="mx-auto flex max-w-6xl items-center gap-3">
           <div className="shrink-0">
             <p className="font-display text-xl font-semibold leading-none">{formatFee(w.fee)}</p>
             <p className="mt-1 text-xs text-muted-foreground">
@@ -219,22 +241,38 @@ function WorkshopDetail() {
             </p>
           </div>
           {booked ? (
-            <Button asChild variant="sea" size="lg" className="flex-1">
+            <Button
+              asChild
+              variant="sea"
+              size="lg"
+              className="h-auto min-h-11 min-w-0 flex-1 whitespace-normal px-3 leading-tight"
+            >
               <Link to="/book/$id" params={{ id: w.id }}>
                 <Check /> You're booked · View
               </Link>
             </Button>
           ) : full ? (
-            <Button variant="secondary" size="lg" disabled className="flex-1">
+            <Button
+              variant="secondary"
+              size="lg"
+              disabled
+              className="h-auto min-h-11 min-w-0 flex-1 whitespace-normal px-3 leading-tight"
+            >
               Full · no seats left
             </Button>
           ) : (
-            <Button asChild variant="hero" size="lg" className="flex-1">
+            <Button
+              asChild
+              variant="hero"
+              size="lg"
+              className="h-auto min-h-11 min-w-0 flex-1 whitespace-normal px-3 leading-tight"
+            >
               <Link to="/book/$id" params={{ id: w.id }}>
                 Book a seat
               </Link>
             </Button>
           )}
+          <WorkshopShare workshop={w} origin={origin} iconOnly />
         </div>
       </div>
     </div>

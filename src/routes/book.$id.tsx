@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   CalendarDays,
@@ -13,13 +13,12 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CraftArt } from "@/components/kg/CraftArt";
-import { demoActions } from "@/lib/demo-store";
-import { INSTRUCTOR, LEARNER, WORKSHOPS, bookingRef, formatFee, prepNotes } from "@/data/sample";
+import { demoActions, getWorkshops, useDemoProgress } from "@/lib/demo-store";
+import { LEARNER, WORKSHOPS, bookingRef, formatFee, prepNotes } from "@/data/sample";
 
 export const Route = createFileRoute("/book/$id")({
   loader: ({ params }) => {
     const workshop = WORKSHOPS.find((w) => w.id === params.id);
-    if (!workshop) throw notFound();
     return { workshop };
   },
   head: ({ loaderData }) => {
@@ -31,7 +30,8 @@ export const Route = createFileRoute("/book/$id")({
         { name: "robots", content: "noindex" },
         {
           name: "description",
-          content: "Your KamotGibo workshop booking: reference, venue, schedule and preparation notes.",
+          content:
+            "Your KamotGibo workshop booking: reference, venue, schedule and preparation notes.",
         },
         { property: "og:title", content: title },
         { property: "og:description", content: "Your workshop booking reference and venue." },
@@ -40,26 +40,37 @@ export const Route = createFileRoute("/book/$id")({
       ],
     };
   },
-  notFoundComponent: () => (
+  notFoundComponent: BookingNotFound,
+  component: BookingConfirmation,
+});
+
+function BookingNotFound() {
+  return (
     <div className="mx-auto max-w-md px-6 py-20 text-center">
       <h1 className="text-3xl font-semibold">Booking not found</h1>
+      <p className="mt-2 text-muted-foreground">
+        Only published workshops in this browser's demo can be booked.
+      </p>
       <Button asChild variant="outline-sea" className="mt-6">
         <Link to="/discover">Browse workshops</Link>
       </Button>
     </div>
-  ),
-  component: BookingConfirmation,
-});
+  );
+}
 
 function BookingConfirmation() {
-  const { workshop: w } = Route.useLoaderData();
-  const full = w.seatsLeft === 0;
+  const { id } = Route.useParams();
+  const progress = useDemoProgress();
+  const w = getWorkshops(progress).find((workshop) => workshop.id === id);
+  const full = w?.seatsLeft === 0;
+  const booked = progress.booked.includes(id);
 
   useEffect(() => {
-    if (!full) demoActions.book(w.id);
-  }, [full, w.id]);
+    if (w && !booked && !full) demoActions.book(id);
+  }, [id, booked, full, w]);
 
-  if (full) {
+  if (!w) return <BookingNotFound />;
+  if (full && !booked) {
     return (
       <div className="mx-auto max-w-md px-6 py-20 text-center">
         <h1 className="text-3xl font-semibold">This session is full</h1>
@@ -178,16 +189,6 @@ function BookingConfirmation() {
           </Link>
         </Button>
       </div>
-
-      {w.id === INSTRUCTOR.workshopId && (
-        <Link
-          to="/teach/session"
-          className="mt-6 flex items-center justify-between gap-3 rounded-2xl border-2 border-dashed border-sea/40 px-4 py-3 text-sm font-bold text-sea hover:bg-sea-soft/50"
-        >
-          <span>Demo: switch to {w.instructor.replace(" (sample)", "")}'s instructor view</span>
-          <ArrowRight className="size-4 shrink-0" />
-        </Link>
-      )}
     </div>
   );
 }

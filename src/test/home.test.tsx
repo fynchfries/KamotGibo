@@ -7,7 +7,6 @@ import {
 } from "@tanstack/react-router";
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { CRAFTS } from "@/data/sample";
 import { Route as HomeRoute } from "@/routes/index";
 
 async function renderHome() {
@@ -17,66 +16,58 @@ async function renderHome() {
     path: "/",
     component: HomeRoute.options.component!,
   });
-  const discover = createRoute({
-    getParentRoute: () => root,
-    path: "/discover",
-    component: () => <h1>Discover</h1>,
-  });
-  const teach = createRoute({
-    getParentRoute: () => root,
-    path: "/teach",
-    component: () => <h1>Teach</h1>,
-  });
   const router = createRouter({
-    routeTree: root.addChildren([home, discover, teach]),
+    routeTree: root.addChildren([home]),
     history: createMemoryHistory({ initialEntries: ["/"] }),
   });
   await router.load();
   render(<RouterProvider router={router} />);
   await screen.findByRole("heading", { level: 1 });
-  return router;
 }
 
-describe("Home welcome page", () => {
-  it("introduces the local craft experience", async () => {
+describe("Public landing page", () => {
+  it("introduces teaching and learning rather than a learner account", async () => {
     await renderHome();
-
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      "Learn a living craft from the hands that keep it alive.",
+      "For the hands that teach. For the hands that learn.",
     );
-    expect(screen.getByText(/Sorsogon crafts/i)).toBeInTheDocument();
+    expect(screen.getByText(/KamotGibo brings artisans and learners together/)).toBeInTheDocument();
+    expect(screen.queryByRole("searchbox")).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Upcoming bookings" })).not.toBeInTheDocument();
   });
 
-  it("links every craft category to its filtered Discover results", async () => {
+  it("gives both audiences their own clearly labelled entrance", async () => {
     await renderHome();
-
-    expect(screen.getByRole("heading", { name: "Explore local crafts" })).toBeInTheDocument();
-    for (const craft of CRAFTS) {
-      const link = screen.getByRole("link", { name: new RegExp(craft.name, "i") });
-      expect(
-        new URL(link.getAttribute("href")!, "http://localhost").searchParams.get("craft"),
-      ).toBe(craft.name);
-    }
-  });
-
-  it("explains how workshops work and links to Discover and Teach", async () => {
-    await renderHome();
-
-    expect(screen.getByRole("heading", { name: "How it works" })).toBeInTheDocument();
-    expect(
-      within(screen.getByRole("list", { name: "How it works" })).getAllByRole("listitem"),
-    ).toHaveLength(3);
-    expect(screen.getByRole("link", { name: "Explore workshops" })).toHaveAttribute(
+    const learner = screen.getByRole("article", { name: "For learners" });
+    const artisan = screen.getByRole("article", { name: "For artisans" });
+    expect(within(learner).getByRole("link", { name: "I'm a learner" })).toHaveAttribute(
       "href",
-      "/discover",
+      "/learn",
     );
-    expect(screen.getByRole("link", { name: "Teach a craft" })).toHaveAttribute("href", "/teach");
+    expect(within(artisan).getByRole("link", { name: "I'm an artisan" })).toHaveAttribute(
+      "href",
+      "/teach",
+    );
+    expect(screen.getAllByRole("link")).toHaveLength(2);
   });
 
-  it("does not duplicate the workshop catalog", async () => {
+  it("shows craft examples as platform information, not learner navigation", async () => {
     await renderHome();
+    const crafts = screen.getByRole("list", { name: "Local crafts" });
+    expect(within(crafts).getAllByRole("listitem")).toHaveLength(4);
+    for (const craft of ["Shellcraft", "Abaca weaving", "Basketry", "Pottery"]) {
+      expect(within(crafts).getByRole("heading", { name: craft })).toBeInTheDocument();
+    }
+    expect(within(crafts).queryByRole("link")).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Browse all workshops" })).not.toBeInTheDocument();
+  });
 
-    expect(screen.queryByRole("heading", { name: "Upcoming workshops" })).not.toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: /View workshop/ })).not.toBeInTheDocument();
+  it("explains the platform's shared teaching and learning flow", async () => {
+    await renderHome();
+    const steps = screen.getByRole("list", { name: "How KamotGibo works" });
+    expect(within(steps).getAllByRole("listitem")).toHaveLength(3);
+    expect(within(steps).getByText("Artisans share their craft")).toBeInTheDocument();
+    expect(within(steps).getByText("Learners find a workshop")).toBeInTheDocument();
+    expect(within(steps).getByText("Learn and create together")).toBeInTheDocument();
   });
 });

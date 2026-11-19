@@ -1,12 +1,14 @@
-
-
-https://github.com/user-attachments/assets/c03bf677-3133-465c-8090-8705d31a90bb
-
-
-
 # KamotGibo
 
-Full application codebase and demo videos: [fynchfries/KamotGibo](https://github.com/fynchfries/KamotGibo).
+Full application codebase and cinematic demo: [fynchfries/KamotGibo](https://github.com/fynchfries/KamotGibo).
+
+## Demo
+
+[![KamotGibo cinematic demo — click to open or download](docs/video/kamotgibo-demo-cinematic-preview.jpg)](https://github.com/fynchfries/KamotGibo/raw/refs/heads/main/kamotgibo-demo-cinematic.mp4)
+
+[Open / download the cinematic demo](https://github.com/fynchfries/KamotGibo/raw/refs/heads/main/kamotgibo-demo-cinematic.mp4)
+
+60 seconds · 1920×1080 · 30 fps · silent.
 
 > Moving the GitHub repository does not reconnect Lovable automatically. Confirm the Lovable project is connected to this repository before expecting editor sync.
 

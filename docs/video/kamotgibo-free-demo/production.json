@@ -1,5 +1,6 @@
 {
-  "status": "export_verified",
+  "status": "archived_removed_from_current_branch",
+  "selected_demo": "kamotgibo-demo-cinematic.mp4",
   "workflow": "user-approved local real-UI edit; not AI-generated",
   "artifact": "kamotgibo-demo-free.mp4",
   "sha256": "e616ba0abf9a03607931279c16c88b326953b8378ff5f01dad0dc1db13b190e7",

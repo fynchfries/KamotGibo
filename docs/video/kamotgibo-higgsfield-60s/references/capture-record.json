@@ -1,0 +1,108 @@
+{
+  "isolatedProfile": true,
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  },
+  "captures": [
+    {
+      "file": "01-home.png",
+      "url": "http://127.0.0.1:8080/",
+      "expected": "For the hands that teach.",
+      "bytes": 147109
+    },
+    {
+      "file": "02-learner-empty.png",
+      "url": "http://127.0.0.1:8080/learn",
+      "expected": "No upcoming bookings yet",
+      "bytes": 144066
+    },
+    {
+      "file": "03-discover.png",
+      "url": "http://127.0.0.1:8080/discover?craft=Shellcraft&town=Gubat",
+      "expected": "Shell Jewelry Basics",
+      "bytes": 224480
+    },
+    {
+      "file": "04-workshop.png",
+      "url": "http://127.0.0.1:8080/workshops/shell-jewelry-basics",
+      "expected": "No online payment. Pay at the venue.",
+      "bytes": 154204
+    },
+    {
+      "file": "05-booking.png",
+      "url": "http://127.0.0.1:8080/book/shell-jewelry-basics",
+      "expected": "Your seat is reserved",
+      "bytes": 136502
+    },
+    {
+      "file": "06-learner-booked.png",
+      "url": "http://127.0.0.1:8080/learn",
+      "expected": "Your next workshops",
+      "bytes": 147306
+    },
+    {
+      "file": "07-artisan.png",
+      "url": "http://127.0.0.1:8080/teach",
+      "expected": "Artisan dashboard",
+      "bytes": 138731
+    },
+    {
+      "file": "08-roster-before.png",
+      "url": "http://127.0.0.1:8080/teach/session?workshopId=shell-jewelry-basics",
+      "expected": "Mark present",
+      "bytes": 123494
+    },
+    {
+      "file": "09-roster-qualified.png",
+      "url": "http://127.0.0.1:8080/teach/session?workshopId=shell-jewelry-basics",
+      "expected": "Present",
+      "bytes": 124085
+    },
+    {
+      "file": "10-roster-issued.png",
+      "url": "http://127.0.0.1:8080/teach/session?workshopId=shell-jewelry-basics",
+      "expected": "Badge issued to Mika",
+      "bytes": 118284
+    },
+    {
+      "file": "11-admin-pending.png",
+      "url": "http://127.0.0.1:8080/admin",
+      "expected": "Bulan Shellcraft Collective (sample)",
+      "bytes": 147189
+    },
+    {
+      "file": "12-admin-approved.png",
+      "url": "http://127.0.0.1:8080/admin",
+      "expected": "Approved just now. They can publish workshops.",
+      "bytes": 145094
+    },
+    {
+      "file": "13-learner-badge.png",
+      "url": "http://127.0.0.1:8080/badges/KG-4F7A-21",
+      "expected": "platform badge, not a formal qualification.",
+      "bytes": 141110
+    }
+  ],
+  "state": {
+    "booked": [
+      "shell-jewelry-basics"
+    ],
+    "badgeIssued": true,
+    "approvedProviders": [
+      "bulan-shell-collective"
+    ],
+    "activeProviderId": "nanay-rosa",
+    "applications": [],
+    "workshops": [],
+    "marks": {
+      "shell-jewelry-basics": {
+        "mika": {
+          "present": true,
+          "skill": "pass",
+          "issued": true
+        }
+      }
+    }
+  }
+}

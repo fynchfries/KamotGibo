@@ -1,0 +1,105 @@
+{
+  "context": "Create a cinematic full-minute demo of an existing craft-learning application using verified UI references.",
+  "params": {
+    "model": "cinematic_studio_video_3_5",
+    "duration": 60,
+    "resolution": "1080p",
+    "aspect_ratio": "16:9",
+    "count": 1,
+    "generate_audio": false,
+    "enhance_prompt": false,
+    "prompt_language": "en",
+    "multi_shots": true,
+    "multi_shot_mode": "custom",
+    "genre": "auto",
+    "color_grading": "naturalistic_clean",
+    "light_scheme": "soft_cross",
+    "style_prompt": "Cinematic optical-glass UI launch, custom warm Clay Studio adaptation. Preserve real KamotGibo application screenshot identity and rigid geometry. Porcelain #FAF7F2, ink #193847, clay #AD4B34, teal #1D6D72, Manrope. Slightly elevated glass-edged app window, meaningful action/result transitions, shallow parallax, directional travel blur, two brief artisan action macros, crisp flat animated headings, final full-frame freeze from 58 to 60 seconds. No audio.",
+    "prompt": "One complete 60-second cinematic web-application demo for KamotGibo, 16:9 landscape. Six timed editorial chapters form ONE finished film, not independent variants. Viewer takeaway: KamotGibo connects Sorsogon learners with local artisans; a fictional learner discovers a workshop, reserves a seat, and receives a sample platform badge only after artisan-recorded attendance and an in-person skill pass; admin review separately enables providers to publish. Target delivery 1920×1080, 30 fps. Complete silence.\n\ndesign world:\nAdapt the optical-glass UI-launch language to the actual Clay Studio brand. Porcelain #FAF7F2 and white app surfaces, deep ink #193847 studio surround and text, teal #1D6D72 edge accents/navigation, clay #AD4B34 primary actions. Use the existing Manrope typography, logo, real shell/abaca/basketry/pottery motifs, rounded cards and sidebar layout. The outer presentation frame has a rigid transparent bevel, visible thickness, restrained refraction and soft reflections; actual interface panels remain opaque, flat and accurate. Bright studio for chapters 1–3 and 5–6, a dark smoked-glass SURROUND only for the artisan chapter. Do not redesign the app or replace meaningful UI with decorative software panels.\n\nmotion rules:\nReal camera travel exposes rim depth, changing occlusion and modest parallax; every move is motivated by the user's action and the next result. Objects retain their geometry. Broad travel eases decisively into readable frontal landings. Use controlled 0.4–0.65-second directional transitions, restrained 1.00–1.16x reading pushes and short up-to-1.3x action macros. Motion blur ONLY during travel, never on settled text or state changes. Headlines stay sharp, flat and locked in screen space; animate clean masks/short upward reveals, never rotating type with objects. Use one unobtrusive pointer, exact button targets and a single click pulse. Maintain the same Mika, Nanay Rosa, workshop, booking reference and badge throughout. Never morph one page's text into another. There is no perpetual camera drift, flashy spinning window or strobing. Establish the active role before showing its controls.\n\nreference contract:\nThe supplied image references are REAL frontend content/identity references, not a storyboard contact sheet or mandatory start frames. In supplied order: 1 homepage; 2 unbooked learner dashboard; 3 Shellcraft discovery; 4 workshop detail; 5 booking confirmation; 6 booked learner dashboard with badge still locked; 7 artisan dashboard; 8 Mika's roster before attendance; 9 roster after attendance plus Pass; 10 roster after issuance; 11 admin before approving Bulan; 12 admin after approval; 13 learner's earned badge; 14 original logo mark. Preserve their actual text, layout, people and artwork. Use the chapter-specific references, not all interfaces simultaneously. Reference screenshots illustrate browser-only sample states, never genuine reservations or qualification evidence.\n\n00:00–00:08 — Homepage and learner entry. Begin in a macro of the real shell-pattern craft tile, then truck right and pull back to the complete KamotGibo landing page from reference 1 inside a subtly elevated, rigid glass-edged app window. Reveal real parallax in the outer rim, not a zoomed slideshow. By 2 seconds settle frontal on the actual homepage: its logo, “For the hands that teach. For the hands that learn.” and learner/artisan choices. Animate the sharp, screen-space wordmark “KamotGibo” and the short line “Craft connects us” with a restrained upward type reveal. Let them hold, then clear. A small pointer selects “I’m a learner”; a single clay edge pulse motivates the match cut into the learner portal. No login, device mockup, new logo or invented controls.\n\n00:08–00:20 — Learner discovery and reservation. Establish the unbooked Learner dashboard from reference 2 for two seconds with its sidebar and empty booking state. Activate Discover; at 10 seconds hard match-cut into the real filtered Shellcraft discovery screen from reference 3. A smooth rightward pan follows the selected shellcraft workshop card into Nanay Rosa’s actual workshop detail from reference 4. Land frontal on “Shell Jewelry Basics: Make Your First Buskay Bracelet”, Gubat, Beginner and PHP 300; keep “No online payment. Pay at the venue.” together with the price. A short sharp heading “Discover local workshops.” slides in without covering the UI, then clears. Activate the existing “Book a seat” control around 16 seconds. Match-cut the selected card to the confirmation in reference 5. By 17 seconds stop the camera: hold “Your seat is reserved” and “BK-GUB-1121” readable through 20 seconds. No payment page or booking form.\n\n00:20–00:30 — Learner-side booking result. Return to the same learner’s real dashboard from reference 6. Preserve its actual sample state: 1 booking, 0 badges and 2/4 milestones. Travel gently from the booked Shell Jewelry Basics card to “Your learning journey”, using a shallow rightward arc in the window’s outer rim, then brake decisively into a flat readable view. Headline “Your learning journey.” builds with a restrained 180-millisecond word stagger and stays sharp. The shellcraft badge is visibly gray and locked: reserving a seat has NOT earned it. Hold the causal result rather than inventing analytics. Briefly emphasize the Booked milestone and the still-unpassed skill check. Maintain the exact workshop, Mika identity and browser-only sample-data context. During the final second the studio surround darkens smoothly to deep ink, preparing a clear editorial role handoff; do not darken or recolor the actual app.\n\n00:30–00:42 — Artisan verification and badge issuance. Make a clear role-switching editorial cut, NOT a login or real-time workshop completion. In a dark-teal studio establish Nanay Rosa’s Artisan dashboard from reference 7 for two seconds, retaining Published, Drafts, Seats booked and provider status. Introduce then clear the heading “Share your craft.” Follow the real Bookings/session path into the instructor roster. Reference 8 shows Mika before attendance; reference 9 shows the qualified state; reference 10 shows issuance. From 33 to 35 seconds use a dark, rounded optical-glass macro of Mika’s actual row: “Issue badge” is disabled, then the pointer activates “Mark present” and it becomes “Present”. No main headline during this insert. Pull back briefly to expose the distinct “Pass” selection at 35–37 seconds. ONLY after attendance AND Pass, show “Issue badge” enabled. Use a second short action macro at 37–39 seconds to activate that existing button. A restrained teal light accent follows that cause into the result. Hold the genuine “Badge issued to Mika” confirmation from 39 to 42 seconds. Keep the actual row geometry and text rigid; no confetti, fabricated certification or random flashing.\n\n00:42–00:52 — Admin provider review. Cut back to a bright porcelain studio with a controlled directional, travel-only blur. Establish the actual Admin review screen from reference 11 with “Provider applications” and all three sample provider cards. Animate the flat heading “Review provider applications.”, then clear it before the click. Push toward the truly pending “Bulan Shellcraft Collective (sample)” card. This is a separate supporting example; Nanay Rosa is already Approved, so do not falsely approve her again. Activate the real “Approve” button around 47 seconds. Reference 12 is the correct resulting state: the pending count becomes 0 and approved count becomes 2; the card changes to “Approved” and says “Approved just now. They can publish workshops.” Hold that result calmly through 52 seconds. Provider approval enables publishing, not learner certification. Do not invent admin charts, private-account security or other management features.\n\n00:52–01:00 — Learner badge payoff and brand resolution. Make a clean editorial return to the learner: use reference 13 for the earned Shellcraft badge. Graphic-match the prior artisan-issued badge shape to the same badge on the learner page, NOT to the admin approval status. From 52 to 56 seconds settle on “Shellcraft: Basic Stringing”, “Platform skill-verified”, “Issued to Mika”, code “KG-4F7A-21” and Nanay Rosa as sample issuer. Keep the visible explanation that this is a platform badge, not a formal qualification. No accreditation marks. From 56 to 58 seconds pull back through the same rigid glass-edged app frame and resolve to the real homepage from reference 1 with the existing KamotGibo identity; the separate logo reference 14 preserves the actual brand mark. Resolve only “KamotGibo” and “Craft connects us”. One narrow reflection travels along the outer rim and settles. From 58 through exactly 60 seconds freeze the ENTIRE composition, camera, typography and light. No fade, darkening, extra scene, URL, watermark or extension.\n\noverall_soundscape:\nAbsolute silence: no speech, narration, UI clicks, ambience, effects or audio track.\n\nnon_diegetic_music:\nNone.\n\ncontent integrity:\nKeep existing sample/demo notices. This is a frontend-only prototype with browser-local state: no backend, authentication, real reservation, online payment, private-account protection, accreditation or TESDA certification is being demonstrated. Existing application text should remain faithful to the supplied UI. The ONLY added headline copy is: “KamotGibo”; “Craft connects us”; “Discover local workshops.”; “Your learning journey.”; “Share your craft.”; “Review provider applications.” No original-source brand leftovers. All animation and the final hold must fit inside exactly 60 seconds.",
+    "multi_prompt": [
+      {
+        "duration": 8,
+        "prompt": "00:00–00:08 — Homepage and learner entry. Begin in a macro of the real shell-pattern craft tile, then truck right and pull back to the complete KamotGibo landing page from reference 1 inside a subtly elevated, rigid glass-edged app window. Reveal real parallax in the outer rim, not a zoomed slideshow. By 2 seconds settle frontal on the actual homepage: its logo, “For the hands that teach. For the hands that learn.” and learner/artisan choices. Animate the sharp, screen-space wordmark “KamotGibo” and the short line “Craft connects us” with a restrained upward type reveal. Let them hold, then clear. A small pointer selects “I’m a learner”; a single clay edge pulse motivates the match cut into the learner portal. No login, device mockup, new logo or invented controls."
+      },
+      {
+        "duration": 12,
+        "prompt": "00:08–00:20 — Learner discovery and reservation. Establish the unbooked Learner dashboard from reference 2 for two seconds with its sidebar and empty booking state. Activate Discover; at 10 seconds hard match-cut into the real filtered Shellcraft discovery screen from reference 3. A smooth rightward pan follows the selected shellcraft workshop card into Nanay Rosa’s actual workshop detail from reference 4. Land frontal on “Shell Jewelry Basics: Make Your First Buskay Bracelet”, Gubat, Beginner and PHP 300; keep “No online payment. Pay at the venue.” together with the price. A short sharp heading “Discover local workshops.” slides in without covering the UI, then clears. Activate the existing “Book a seat” control around 16 seconds. Match-cut the selected card to the confirmation in reference 5. By 17 seconds stop the camera: hold “Your seat is reserved” and “BK-GUB-1121” readable through 20 seconds. No payment page or booking form."
+      },
+      {
+        "duration": 10,
+        "prompt": "00:20–00:30 — Learner-side booking result. Return to the same learner’s real dashboard from reference 6. Preserve its actual sample state: 1 booking, 0 badges and 2/4 milestones. Travel gently from the booked Shell Jewelry Basics card to “Your learning journey”, using a shallow rightward arc in the window’s outer rim, then brake decisively into a flat readable view. Headline “Your learning journey.” builds with a restrained 180-millisecond word stagger and stays sharp. The shellcraft badge is visibly gray and locked: reserving a seat has NOT earned it. Hold the causal result rather than inventing analytics. Briefly emphasize the Booked milestone and the still-unpassed skill check. Maintain the exact workshop, Mika identity and browser-only sample-data context. During the final second the studio surround darkens smoothly to deep ink, preparing a clear editorial role handoff; do not darken or recolor the actual app."
+      },
+      {
+        "duration": 12,
+        "prompt": "00:30–00:42 — Artisan verification and badge issuance. Make a clear role-switching editorial cut, NOT a login or real-time workshop completion. In a dark-teal studio establish Nanay Rosa’s Artisan dashboard from reference 7 for two seconds, retaining Published, Drafts, Seats booked and provider status. Introduce then clear the heading “Share your craft.” Follow the real Bookings/session path into the instructor roster. Reference 8 shows Mika before attendance; reference 9 shows the qualified state; reference 10 shows issuance. From 33 to 35 seconds use a dark, rounded optical-glass macro of Mika’s actual row: “Issue badge” is disabled, then the pointer activates “Mark present” and it becomes “Present”. No main headline during this insert. Pull back briefly to expose the distinct “Pass” selection at 35–37 seconds. ONLY after attendance AND Pass, show “Issue badge” enabled. Use a second short action macro at 37–39 seconds to activate that existing button. A restrained teal light accent follows that cause into the result. Hold the genuine “Badge issued to Mika” confirmation from 39 to 42 seconds. Keep the actual row geometry and text rigid; no confetti, fabricated certification or random flashing."
+      },
+      {
+        "duration": 10,
+        "prompt": "00:42–00:52 — Admin provider review. Cut back to a bright porcelain studio with a controlled directional, travel-only blur. Establish the actual Admin review screen from reference 11 with “Provider applications” and all three sample provider cards. Animate the flat heading “Review provider applications.”, then clear it before the click. Push toward the truly pending “Bulan Shellcraft Collective (sample)” card. This is a separate supporting example; Nanay Rosa is already Approved, so do not falsely approve her again. Activate the real “Approve” button around 47 seconds. Reference 12 is the correct resulting state: the pending count becomes 0 and approved count becomes 2; the card changes to “Approved” and says “Approved just now. They can publish workshops.” Hold that result calmly through 52 seconds. Provider approval enables publishing, not learner certification. Do not invent admin charts, private-account security or other management features."
+      },
+      {
+        "duration": 8,
+        "prompt": "00:52–01:00 — Learner badge payoff and brand resolution. Make a clean editorial return to the learner: use reference 13 for the earned Shellcraft badge. Graphic-match the prior artisan-issued badge shape to the same badge on the learner page, NOT to the admin approval status. From 52 to 56 seconds settle on “Shellcraft: Basic Stringing”, “Platform skill-verified”, “Issued to Mika”, code “KG-4F7A-21” and Nanay Rosa as sample issuer. Keep the visible explanation that this is a platform badge, not a formal qualification. No accreditation marks. From 56 to 58 seconds pull back through the same rigid glass-edged app frame and resolve to the real homepage from reference 1 with the existing KamotGibo identity; the separate logo reference 14 preserves the actual brand mark. Resolve only “KamotGibo” and “Craft connects us”. One narrow reflection travels along the outer rim and settles. From 58 through exactly 60 seconds freeze the ENTIRE composition, camera, typography and light. No fade, darkening, extra scene, URL, watermark or extension."
+      }
+    ],
+    "use_unlim": false,
+    "medias": [
+      {
+        "role": "image_references",
+        "value": "222a2a7e-b674-4be0-91a7-03634538b54e"
+      },
+      {
+        "role": "image_references",
+        "value": "837ff6ad-049f-41ed-bdb1-90063dd3f257"
+      },
+      {
+        "role": "image_references",
+        "value": "38078ab6-7181-4941-b757-0decf328ac41"
+      },
+      {
+        "role": "image_references",
+        "value": "e51001ef-a683-4265-9528-4712e92d355e"
+      },
+      {
+        "role": "image_references",
+        "value": "e0968956-4816-4b26-8802-bb8c16e88d24"
+      },
+      {
+        "role": "image_references",
+        "value": "9b9e7bb0-0525-4181-80e2-0a553165842a"
+      },
+      {
+        "role": "image_references",
+        "value": "0441930a-0d4b-4288-beb8-fb909d9e794a"
+      },
+      {
+        "role": "image_references",
+        "value": "2fa59a8e-750a-4f86-8a0d-7bacba1e2f93"
+      },
+      {
+        "role": "image_references",
+        "value": "011f1155-eac0-464c-83d9-1df919499613"
+      },
+      {
+        "role": "image_references",
+        "value": "7c06b4fb-5fee-4188-a011-9cdbded93bd3"
+      },
+      {
+        "role": "image_references",
+        "value": "b06af630-8019-4d6f-a084-1dfa0fae056b"
+      },
+      {
+        "role": "image_references",
+        "value": "6c00e261-93d0-48f1-8dbc-935c7e161dee"
+      },
+      {
+        "role": "image_references",
+        "value": "cea9945c-e9db-4dbe-bfbf-b2bd51a5f08a"
+      },
+      {
+        "role": "image_references",
+        "value": "1d324c88-2d0f-4483-ba8e-8e9a3841a750"
+      }
+    ]
+  }
+}

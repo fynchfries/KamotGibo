@@ -1,0 +1,65 @@
+[
+  {
+    "start": 0.3,
+    "end": 3.05,
+    "checkAt": 1.4,
+    "kicker": "KAMOTGIBO · SORSOGON",
+    "title": "Craft connects us"
+  },
+  {
+    "start": 4.35,
+    "end": 6.15,
+    "checkAt": 5.3,
+    "kicker": "LEARNER DASHBOARD",
+    "title": "Your learning journey."
+  },
+  {
+    "start": 7,
+    "end": 9.15,
+    "checkAt": 8.2,
+    "kicker": "LEARNER · DISCOVER",
+    "title": "Discover local workshops."
+  },
+  {
+    "start": 19.2,
+    "end": 22.1,
+    "checkAt": 20.7,
+    "kicker": "LEARNER · SAMPLE BOOKING",
+    "title": "Your seat is reserved"
+  },
+  {
+    "start": 26.55,
+    "end": 28.45,
+    "checkAt": 27.5,
+    "kicker": "ARTISAN DASHBOARD",
+    "title": "Share your craft."
+  },
+  {
+    "start": 31.8,
+    "end": 34.25,
+    "checkAt": 33.1,
+    "kicker": "ADMIN REVIEW",
+    "title": "Review provider applications."
+  },
+  {
+    "start": 39.85,
+    "end": 42.1,
+    "checkAt": 41.1,
+    "kicker": "ARTISAN · IN-PERSON CHECK",
+    "title": "Attendance. Skill check. Badge."
+  },
+  {
+    "start": 48.4,
+    "end": 50.15,
+    "checkAt": 49.5,
+    "kicker": "LEARNER · PLATFORM BADGE",
+    "title": "Skills checked in person"
+  },
+  {
+    "start": 57.6,
+    "end": 60,
+    "checkAt": 59,
+    "kicker": "KAMOTGIBO",
+    "title": "Craft connects us"
+  }
+]

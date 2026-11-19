@@ -1,0 +1,15 @@
+{
+  "status": "superseded_by_completed_free_local_demo",
+  "error": "Backend 422: inline style axes (camera_style/light_scheme/color_grading) and style_prompt are mutually exclusive.",
+  "request_id": "43156971-1c51-4775-ac1f-e30de1ced47a",
+  "submission_calls": 1,
+  "returned_job_ids": [],
+  "actual_charge_credits": 0,
+  "billing_status": "verified_no_spend_or_refund_transactions; complete ledger contains only registration grant",
+  "available_credits_at_resubmission_check": 10,
+  "required_credits": 780,
+  "shortfall_credits": 770,
+  "corrected_request": "request-corrected.json",
+  "corrected_quote_credits": 780,
+  "next_action": "The user subsequently selected and approved the free local real-UI workflow. A separate kamotgibo-demo-free.mp4 now exists with verification in docs/video/kamotgibo-free-demo/production.json. Do not submit this paid request or activate a trial unless the user gives new explicit approval."
+}

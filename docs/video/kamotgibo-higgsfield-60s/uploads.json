@@ -1,0 +1,117 @@
+{
+  "status": "all_14_uploads_confirmed",
+  "uploads": [
+    {
+      "index": 1,
+      "filename": "01-home.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/01-home.png",
+      "media_id": "222a2a7e-b674-4be0-91a7-03634538b54e",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 2,
+      "filename": "02-learner-empty.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/02-learner-empty.png",
+      "media_id": "837ff6ad-049f-41ed-bdb1-90063dd3f257",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 3,
+      "filename": "03-discover.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/03-discover.png",
+      "media_id": "38078ab6-7181-4941-b757-0decf328ac41",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 4,
+      "filename": "04-workshop.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/04-workshop.png",
+      "media_id": "e51001ef-a683-4265-9528-4712e92d355e",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 5,
+      "filename": "05-booking.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/05-booking.png",
+      "media_id": "e0968956-4816-4b26-8802-bb8c16e88d24",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 6,
+      "filename": "06-learner-booked.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/06-learner-booked.png",
+      "media_id": "9b9e7bb0-0525-4181-80e2-0a553165842a",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 7,
+      "filename": "07-artisan.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/07-artisan.png",
+      "media_id": "0441930a-0d4b-4288-beb8-fb909d9e794a",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 8,
+      "filename": "08-roster-before.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/08-roster-before.png",
+      "media_id": "2fa59a8e-750a-4f86-8a0d-7bacba1e2f93",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 9,
+      "filename": "09-roster-qualified.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/09-roster-qualified.png",
+      "media_id": "011f1155-eac0-464c-83d9-1df919499613",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 10,
+      "filename": "10-roster-issued.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/10-roster-issued.png",
+      "media_id": "7c06b4fb-5fee-4188-a011-9cdbded93bd3",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 11,
+      "filename": "11-admin-pending.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/11-admin-pending.png",
+      "media_id": "b06af630-8019-4d6f-a084-1dfa0fae056b",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 12,
+      "filename": "12-admin-approved.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/12-admin-approved.png",
+      "media_id": "6c00e261-93d0-48f1-8dbc-935c7e161dee",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 13,
+      "filename": "13-learner-badge.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/docs/video/kamotgibo-higgsfield-60s/references/13-learner-badge.png",
+      "media_id": "cea9945c-e9db-4dbe-bfbf-b2bd51a5f08a",
+      "role": "image_references",
+      "http_status": 200
+    },
+    {
+      "index": 14,
+      "filename": "14-kamotgibo-logo.png",
+      "path": "/Users/macbookprom1/kamotgibo_lovable/src/assets/kamotgibo-logo.png",
+      "media_id": "1d324c88-2d0f-4483-ba8e-8e9a3841a750",
+      "role": "image_references",
+      "http_status": 200
+    }
+  ]
+}

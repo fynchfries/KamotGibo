@@ -1,0 +1,14 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "Cost preflight for cinematic_studio_video_3_5: 780 credits (780 exact). No job submitted."
+    }
+  ],
+  "structuredContent": {
+    "cost": {
+      "credits": 780,
+      "credits_exact": 780
+    }
+  }
+}

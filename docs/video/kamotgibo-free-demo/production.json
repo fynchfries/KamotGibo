@@ -1,0 +1,71 @@
+{
+  "status": "export_verified",
+  "workflow": "user-approved local real-UI edit; not AI-generated",
+  "artifact": "kamotgibo-demo-free.mp4",
+  "sha256": "e616ba0abf9a03607931279c16c88b326953b8378ff5f01dad0dc1db13b190e7",
+  "size_bytes": 68988161,
+  "duration_s": 60,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "codec": "H.264",
+  "container": "MP4",
+  "video_tracks": 1,
+  "audio_tracks": 0,
+  "subtitle_tracks": 0,
+  "decoded_frames": 1800,
+  "source": {
+    "path": "kamotgibo-demo-cinematic.mp4",
+    "sha256": "3e9913ccc177f128d940b1795e650e6f3e1d699f72555d7bc795e7c45da0430c",
+    "preserved": true
+  },
+  "render": {
+    "script": "render.swift",
+    "cues": "cues.json",
+    "uniform_source_scale": 0.9,
+    "source_origin": {
+      "x": 96,
+      "y": 108
+    },
+    "chapter_strip_height": 108,
+    "title_font": ".AppleSystemUIFontDemi",
+    "original_ui_font": "retained in original footage",
+    "final_hold": {
+      "output_start_s": 58,
+      "output_end_s": 60,
+      "source_frame_s": 58.6
+    }
+  },
+  "cost": {
+    "higgsfield_credits_used": 0,
+    "paid_calls": 0,
+    "trials_activated": 0,
+    "new_dependencies": 0
+  },
+  "checks": {
+    "export_properties": "pass",
+    "all_1800_frames_decode": "pass",
+    "exact_chapter_copy_ocr": "9/9 pass",
+    "rendered_typography_entry_animation": "pass: actual entry/midpoint/settled frame brightness increases",
+    "final_two_second_hold": "pass: mean decoded thumbnail difference <= 0.0921",
+    "ui_title_geometry": "pass: nonintersecting regions",
+    "source_hash": "unchanged",
+    "product_files": "unchanged"
+  },
+  "review": {
+    "method": "author self-review; representative decoded-frame inspection and automated full-frame/export/copy/animation/hold checks",
+    "full_end_to_end_human_playback": "not performed",
+    "independent_review": "not performed; no subagent tool",
+    "limitations": [
+      "Reuses the existing real action order rather than the AI storyboard timing.",
+      "New chapter-strip font uses the native sans-serif fallback; original Manrope UI is unchanged.",
+      "Source footage retains its original camera crops and reading durations."
+    ]
+  },
+  "reproduce": [
+    "swiftc -O -parse-as-library docs/video/kamotgibo-free-demo/render.swift -o /private/tmp/kamotgibo-free-demo/render",
+    "/private/tmp/kamotgibo-free-demo/render \"$PWD/kamotgibo-demo-cinematic.mp4\" \"$PWD/docs/video/kamotgibo-free-demo/cues.json\" /private/tmp/kamotgibo-free-demo/new-output.mp4",
+    "swiftc -O -parse-as-library docs/video/kamotgibo-free-demo/check-typography.swift -o /private/tmp/kamotgibo-free-demo/check-typography",
+    "/private/tmp/kamotgibo-free-demo/check-typography \"$PWD/kamotgibo-demo-free.mp4\" \"$PWD/docs/video/kamotgibo-free-demo/cues.json\" /private/tmp/kamotgibo-free-demo/previews"
+  ]
+}

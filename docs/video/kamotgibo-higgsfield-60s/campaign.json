@@ -1,0 +1,91 @@
+{
+  "status": "superseded_by_user_approved_free_local_demo",
+  "authorization": {
+    "single_video_attempt": true,
+    "credit_ceiling": 780,
+    "retries": 0,
+    "fallback_jobs": 0,
+    "corrected_resubmission_approved": false,
+    "latest_user_choice": "Free local real-UI workflow; do not submit paid generations without new explicit approval",
+    "resubmission_authorization": "can you continue"
+  },
+  "brand": "KamotGibo",
+  "preset_id": "glass-ui-launch",
+  "mode": "production",
+  "source_prompt_path": ".agents/skills/motion-design/references/source-prompts/glass-ui-launch.txt",
+  "source_prompt_sha256": "674ac5c53f5b63e7cd449936c55f4095fecec023554ca9a20a9b6564626932ce",
+  "format": {
+    "duration_s": 60,
+    "aspect_ratio": "16:9",
+    "width": 1920,
+    "height": 1080,
+    "fps_delivery_target": 30,
+    "native_fps": "not yet known"
+  },
+  "model": "cinematic_studio_video_3_5",
+  "audio": "silent_no_audio_track",
+  "generation_strategy": "one_full_film_request",
+  "project_preference": {
+    "auto_create_project": false
+  },
+  "departures": [
+    "Original seven-shot 15s source rebuilt into six 60s editorial chapters, rather than proportionally slowed.",
+    "Warm brand palette replaces source cobalt/cool white.",
+    "Actual UI reading views replace abstract phone-sales objects; glass material belongs to the surround.",
+    "Dark passage and two action macros retained in artisan chapter.",
+    "Existing campaign silence overrides source music/effects.",
+    "New brief adds animated headlines and admin coverage.",
+    "Cinema Studio 3.5 chosen for quoted single-60s request; Seedance 2.5 is capped at 30s."
+  ],
+  "viewer_takeaway": "Find a local workshop, reserve a sample seat, see artisan attendance and skill verification cause badge issuance; separately see provider approval enable publishing.",
+  "exact_added_copy": [
+    "KamotGibo",
+    "Craft connects us",
+    "Discover local workshops.",
+    "Your learning journey.",
+    "Share your craft.",
+    "Review provider applications."
+  ],
+  "timeline": [
+    {
+      "start": 0,
+      "end": 8,
+      "duration": 8,
+      "label": "Homepage and learner entry"
+    },
+    {
+      "start": 8,
+      "end": 20,
+      "duration": 12,
+      "label": "Learner discovery and reservation"
+    },
+    {
+      "start": 20,
+      "end": 30,
+      "duration": 10,
+      "label": "Learner-side booking result"
+    },
+    {
+      "start": 30,
+      "end": 42,
+      "duration": 12,
+      "label": "Artisan verification and badge issuance"
+    },
+    {
+      "start": 42,
+      "end": 52,
+      "duration": 10,
+      "label": "Admin provider review"
+    },
+    {
+      "start": 52,
+      "end": 60,
+      "duration": 8,
+      "label": "Learner badge payoff and brand resolution"
+    }
+  ],
+  "asset_capture_record": "references/capture-record.json",
+  "prompt_path": "prompt.txt",
+  "job_id": null,
+  "actual_charge_credits": 0
+}

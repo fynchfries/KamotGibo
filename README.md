@@ -4,7 +4,11 @@ https://github.com/user-attachments/assets/c03bf677-3133-465c-8090-8705d31a90bb
 
 
 
-# Kamotgibo
+# KamotGibo
+
+Full application codebase and demo videos: [fynchfries/KamotGibo](https://github.com/fynchfries/KamotGibo).
+
+> Moving the GitHub repository does not reconnect Lovable automatically. Confirm the Lovable project is connected to this repository before expecting editor sync.
 
 Implement exactly the screenshot and nothing else
 
@@ -23,8 +27,8 @@ Continue developing this project in the [Lovable editor](https://lovable.dev/pro
 Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
+git clone https://github.com/fynchfries/KamotGibo.git
+cd KamotGibo
 npm i
 npm run dev
 ```
